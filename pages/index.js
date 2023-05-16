@@ -81,7 +81,7 @@ export default function Home({ images: defaultImages, nextCursor: defaultNextCur
             const isActive = folder.path === activeFolder;
             return (
               <li key={folder.path} data-active-folder={isActive}>
-                <button className="bg-whites shadow-transparent px-5 py-4" data-folder-path={folder.path}>
+                <button className="px-5" data-folder-path={folder.path}>
                   { folder.name }
                 </button>
               </li>
