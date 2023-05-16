@@ -88,6 +88,18 @@ function AddEdit(props) {
                     <div className="invalid-feedback">{errors.password?.message}</div>
                 </div>
             </div>
+            <div className="row">
+                <div className="mb-3 col">
+                    <label className="form-label">User Type</label>
+                    <input name="userType" type="text" {...register('userType')} className={`form-control ${errors.username ? 'is-invalid' : ''}`} />
+                    <div className="invalid-feedback">{errors.email?.message}</div>
+                </div>
+                <div className="mb-3 col">
+                    <label className="form-label">Discount</label>
+                    <input name="discount" type="text" {...register('discount')} className={`form-control ${errors.username ? 'is-invalid' : ''}`} />
+                    <div className="invalid-feedback">{errors.email?.message}</div>
+                </div>
+            </div>
             <div className="mb-3">
                 <button type="submit" disabled={formState.isSubmitting} className="btn btn-primary me-2">
                     {formState.isSubmitting && <span className="spinner-border spinner-border-sm me-1"></span>}

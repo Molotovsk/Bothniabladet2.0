@@ -18,7 +18,9 @@ function userModel() {
         username: { type: String, unique: true, required: true },
         hash: { type: String, required: true },
         firstName: { type: String, required: true },
-        lastName: { type: String, required: true }
+        lastName: { type: String, required: true },
+        userType: {type: String, lowercase: true, required: true, default: "customer"},
+        discount: {type: Number, required: false, default: 0}
     }, {
         // add createdAt and updatedAt timestamps
         timestamps: true
