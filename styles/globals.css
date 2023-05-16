@@ -110,10 +110,6 @@ a {
   }
 }
 
-.images {
-  @apply list-none p-0 m-0 grid grid-cols-auto-fill grid-flow-row gap-3em;
-  grid-template-columns: minmax(200px, 1fr);
-}
 
 .imageTitle {
   @apply text-lg mt-1.5 font-medium;
@@ -121,5 +117,14 @@ a {
 
 .imageImage > div {
   @apply block!important;
+}
+
+.folders {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-gap: 3em;
 }
 

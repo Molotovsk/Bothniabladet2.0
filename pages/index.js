@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import Head from 'next/head'
 import Image from 'next/image'
 
+
 import { search, mapImageResources, getFolders } from '../helpers/cloudinary';
 
 
@@ -70,12 +71,12 @@ export default function Home({ images: defaultImages, nextCursor: defaultNextCur
         <meta name="description" content="All of my cool images." />
       </Head>
   
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
+      <div className="container mx-auto px-4">
         <h1 className="sr-only">My Images</h1>
   
         <h2 className="text-2xl font-bold mb-4">Folders</h2>
   
-        <ul className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4" onClick={handleOnFolderClick}>
+        <ul className=".folder" onClick={handleOnFolderClick}>
           {folders.map(folder => {
             const isActive = folder.path === activeFolder;
             return (
