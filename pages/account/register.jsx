@@ -4,7 +4,6 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 
-import { Layout } from 'components/account';
 import { userService, alertService } from 'services';
 
 export default Register;
@@ -40,7 +39,6 @@ function Register() {
     }
 
     return (
-        <Layout>
             <div className="card">
                 <h4 className="card-header">Register</h4>
                 <div className="card-body">
@@ -73,6 +71,5 @@ function Register() {
                     </form>
                 </div>
             </div>
-        </Layout>
     );
 }

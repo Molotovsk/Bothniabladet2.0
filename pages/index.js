@@ -65,7 +65,7 @@ export default function Home({ images: defaultImages, nextCursor: defaultNextCur
   }, [activeFolder]);
 
   return (
-    <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-[200px_minmax(900px,_1fr)_100px]">
       <Head>
         <title>My Images</title>
         <meta name="description" content="All of my cool images." />
@@ -81,7 +81,7 @@ export default function Home({ images: defaultImages, nextCursor: defaultNextCur
             const isActive = folder.path === activeFolder;
             return (
               <li key={folder.path} data-active-folder={isActive}>
-                <button className="bg-white shadow-sm border rounded-md px-4 py-2" data-folder-path={folder.path}>
+                <button className="px-5" data-folder-path={folder.path}>
                   { folder.name }
                 </button>
               </li>
@@ -91,7 +91,7 @@ export default function Home({ images: defaultImages, nextCursor: defaultNextCur
   
         <h2 className="text-2xl font-bold mt-12 mb-4">Images</h2>
   
-        <ul className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+        <ul className="grid grid-cols-2 sm:grid-cols-5 lg:grid-cols-4 gap-4">
           {images.map(image => {
             return (
               <li key={image.id}>

@@ -5,7 +5,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import Image from "next/image";
 
-import { Layout } from 'components/account';
+import loginImg from 'pages/assets/Bothniabladet.png'
+
 import { userService, alertService } from 'services';
 import {checkFields} from "@/components/Nav";
 
@@ -37,31 +38,12 @@ function Login() {
     }
 
     return (
-        <Layout>
 
-            <header className="flex justify-center">
-
-            <div className="flex flex-wrap items-center justify-around">
-
-            <Link href="/startPage">
-                        <Image
-                                class="basis-1/8 shrink"
-                                src={require('pages/assets/Bothniabladet.png')}
-                                alt="Bothniabladet logga"
-                                width={1000}
-                                height={1000}
-                                priority
-                            />
-            </Link>
-
-                        </div>
-
-            </header>
-            <div className="login_box">
-                <h4 className="card-header">Logga in</h4>
+                <div className="min-h-screen flex flex-col items-center justify-center">
+                <h4 className="card-header bg-white">Logga in</h4>
                 <div className="card-body">
                     <form onSubmit={handleSubmit(onSubmit)}>
-                        <div className="mb-3">
+                        <div className="mb-5">
                             <label className="form-label">Username</label>
                             <input name="username" type="text" {...register('username')} className={`form-control ${errors.username ? 'is-invalid' : ''}`} />
                             <div className="invalid-feedback">{errors.username?.message}</div>
@@ -81,6 +63,6 @@ function Login() {
                 </div>
             </div>
             
-        </Layout>
-    );
+    )
+    
 }

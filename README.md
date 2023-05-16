@@ -8,7 +8,7 @@ Först av allt börja i ../bothniabladet och kör
 npm install
 ```
 
-Sedan skapa en.env.local fil, exempelvis med följande:
+Sedan skapa .env.local fil, exempelvis med följande:
 
 ```bash
 
