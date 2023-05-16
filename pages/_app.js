@@ -54,7 +54,7 @@ function App({ Component, pageProps }) {
                 <title>Bothniabladet</title>
             </Head>
 
-            <div className={`app-container ${user ? 'bg-light' : ''}`}>
+            <div className={`app-container ${user ? 'bg-myColor-50' : ''}`}>
                 <Nav />
                 <Alert />
                 {authorized &&
