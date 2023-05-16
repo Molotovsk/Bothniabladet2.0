@@ -39,7 +39,7 @@ function Login() {
 
     return (
         <div>
-            <header className="flex justify-center bg-green-800">
+            <header className="flex justify-center bg-myColor-500">
                 <div className="flex flex-wrap items-center justify-around">
                     <Link href="/startPage">
                         <Image
@@ -63,8 +63,8 @@ function Login() {
                     </Link>
                 </div>
             </header>
-            <div className="min-h-screen flex flex-col items-center justify-center bg-myColor-400">
-                <h4 className="card-header font-bold text-xl pt-5 bg-myColor-400">Logga in</h4>
+            <div className="min-h-screen flex flex-col items-center justify-center">
+                <h4 className="card-header font-bold text-xl pt-5 ">Logga in</h4>
                 <div className="card-body ">
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <div className=" py-4">
@@ -79,12 +79,12 @@ function Login() {
                         </div>
                         
                         <div className="flex justify-center flex-row space-x-4">
-                        <button disabled={formState.isSubmitting} className="bg-green-600 w-20 h-8 rounded hover:bg-gray-300">
+                        <button disabled={formState.isSubmitting} className="bg-myColor-500 w-20 h-8 rounded hover:bg-gray-300">
                             
                             {formState.isSubmitting && <span className="spinner-border spinner-border-sm me-1"></span>}
                             Login
                         </button>
-                        <button className="bg-green-600 w-20 h-8 rounded hover:bg-gray-300">
+                        <button className="bg-myColor-500 w-20 h-8 rounded hover:bg-gray-300">
                             <Link href="/account/register">Register</Link>
                         </button>
                         </div>
