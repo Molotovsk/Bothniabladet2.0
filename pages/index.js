@@ -65,7 +65,7 @@ export default function Home({ images: defaultImages, nextCursor: defaultNextCur
   }, [activeFolder]);
 
   return (
-    <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-[200px_minmax(900px,_1fr)_100px]">
       <Head>
         <title>My Images</title>
         <meta name="description" content="All of my cool images." />
@@ -81,7 +81,7 @@ export default function Home({ images: defaultImages, nextCursor: defaultNextCur
             const isActive = folder.path === activeFolder;
             return (
               <li key={folder.path} data-active-folder={isActive}>
-                <button className="bg-white shadow-sm border rounded-md px-4 py-2" data-folder-path={folder.path}>
+                <button className="bg-whites shadow-transparent px-5 py-4" data-folder-path={folder.path}>
                   { folder.name }
                 </button>
               </li>
