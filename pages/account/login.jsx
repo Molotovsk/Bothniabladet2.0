@@ -7,6 +7,7 @@ import Image from "next/image";
 
 import { Layout } from 'components/account';
 import { userService, alertService } from 'services';
+import {checkFields} from "@/components/Nav";
 
 export default Login;
 
