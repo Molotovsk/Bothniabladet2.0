@@ -8,6 +8,7 @@ import Image from "next/image";
 import loginImg from 'pages/assets/Bothniabladet.png'
 
 import { userService, alertService } from 'services';
+import {checkFields} from "@/components/Nav";
 
 export default Login;
 
