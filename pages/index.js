@@ -91,7 +91,7 @@ export default function Home({ images: defaultImages, nextCursor: defaultNextCur
   
         <h2 className="text-2xl font-bold mt-12 mb-4">Images</h2>
   
-        <ul className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+        <ul className="grid grid-cols-2 sm:grid-cols-5 lg:grid-cols-4 gap-4">
           {images.map(image => {
             return (
               <li key={image.id}>
