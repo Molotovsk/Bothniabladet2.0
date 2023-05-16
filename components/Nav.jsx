@@ -22,7 +22,7 @@ function Nav() {
                 <NavLink href="/" exact className="nav-item nav-link">Home</NavLink>
                 <NavLink href="/users" className="nav-item nav-link">Users</NavLink>
                 <NavLink href="/pictures" className="nav-item nav-link">Upload images</NavLink>
-                <button onClick={userService.logout} className="btn btn-link nav-item nav-link">Logout</button>
+                <button onClick={userService.logout} className="btn btn-link nav-item nav-link ">Logout</button>
             </div>
         </nav>
     );
