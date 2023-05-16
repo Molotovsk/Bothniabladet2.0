@@ -17,6 +17,8 @@ function Nav() {
   // Only show nav when logged in
   if (!user) return null;
 
+  
+
   function CustomerNav() {
     return (
       <nav className="navbar navbar-expand navbar-dark bg-myColor-500 px-3">
