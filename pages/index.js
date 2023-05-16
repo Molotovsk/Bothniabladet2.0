@@ -65,7 +65,7 @@ export default function Home({ images: defaultImages, nextCursor: defaultNextCur
   }, [activeFolder]);
 
   return (
-    <div class="grid grid-cols-[200px_minmax(900px,_1fr)_100px]">
+    <div class="container mx-auto max-w-2xl px-4">
       <Head>
         <title>My Images</title>
         <meta name="description" content="All of my cool images." />
