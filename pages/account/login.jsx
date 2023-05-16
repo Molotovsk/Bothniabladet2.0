@@ -63,29 +63,30 @@ function Login() {
                     </Link>
                 </div>
             </header>
-            <div className="min-h-screen flex flex-col items-center justify-center">
-                <h4 className="card-header font-bold text-xl pt-5 ">Logga in</h4>
-                <div className="card-body ">
+            <div className="flex justify-center py-24">
+            <div className="card m-5 w-96 bg-myColor-300">
+                <h4 className="card-header bg-myColor-500 font-extrabold">Logga in</h4>
+                <div className="card-body font-semibold">
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <div className=" py-4">
-                            <label className="form-label font-extrabold">Username</label>
+                            <label className="form-label font-extrabold">Användarnamn</label>
                             <input name="username" type="text" {...register('username')} className={`form-control ${errors.username ? 'is-invalid' : ''}`} />
                             <div className="invalid-feedback">{errors.username?.message}</div>
                         </div>
-                        <div className="mb-3">
-                            <label className="form-label font-extrabold">Password</label>
+                        <div className="mb-4">
+                            <label className="form-label font-extrabold">Lösenord</label>
                             <input name="password" type="password" {...register('password')} className={`form-control ${errors.password ? 'is-invalid' : ''}`} />
                             <div className="invalid-feedback">{errors.password?.message}</div>
                         </div>
                         
                         <div className="flex justify-center flex-row space-x-4">
-                        <button disabled={formState.isSubmitting} className="bg-myColor-500 w-20 h-8 rounded hover:bg-gray-300">
+                        <button disabled={formState.isSubmitting} className="bg-myColor-500 w-24 h-10 rounded hover:bg-gray-300">
                             
                             {formState.isSubmitting && <span className="spinner-border spinner-border-sm me-1"></span>}
-                            Login
+                            Logga in
                         </button>
-                        <button className="bg-myColor-500 w-20 h-8 rounded hover:bg-gray-300">
-                            <Link href="/account/register">Register</Link>
+                        <button className="bg-myColor-500 w-24 h-10 rounded hover:bg-gray-300">
+                            <Link href="/account/register">Registrera</Link>
                         </button>
                         </div>
                        
@@ -93,7 +94,7 @@ function Login() {
                 </div>
             </div>
             </div>
-            
+        </div>    
     )
     
 }
