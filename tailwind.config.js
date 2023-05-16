@@ -18,7 +18,21 @@ module.exports = {
         wide: { raw: '(min-aspect-ratio: 3 / 2)' },
         'taller-than-854': { raw: '(min-height: 854px)' },
       },
+      colors: {
+        myColor: {
+          "50": "#eef3ed",
+          "100": "#dee7db",
+          "200": "#bccfb6",
+          "300": "#9bb692",
+          "400": "#799e6d",
+          "500": "#588649",
+          "600": "#466b3a",
+          "700": "#35502c",
+          "800": "#23361d",
+          "900": "#121b0f",
+        }
     },
   },
   plugins: [],
+}
 }
