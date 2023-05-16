@@ -31,8 +31,7 @@ function Nav() {
         return <nav className="navbar navbar-expand navbar-dark bg-dark px-3">
             <div className="navbar-nav">
                 <NavLink href="/" exact className="nav-item nav-link">Home</NavLink>
-                <NavLink href="/pictures" id="upload" className="nav-item nav-link">Upload images</NavLink>
-
+                <NavLink href="/account/imageupload" id="upload" className="nav-item nav-link">Upload images</NavLink>
                 <button onClick={userService.logout} className="btn btn-link nav-item nav-link">Logout</button>
             </div>
         </nav>
@@ -41,14 +40,8 @@ function Nav() {
         return <nav className="navbar navbar-expand navbar-dark bg-dark px-3">
             <div className="navbar-nav">
                 <NavLink href="/" exact className="nav-item nav-link">Home</NavLink>
-
                 <NavLink href="/users" id="users" className="nav-item nav-link">Users</NavLink>
-                <NavLink href="/pictures" id="upload" className="nav-item nav-link">Upload images</NavLink>
-
-                <button onClick={userService.logout} className="btn btn-link nav-item nav-link">Logout</button>
-
-                <NavLink href="/users" className="nav-item nav-link">Users</NavLink>
-                <NavLink href="/pictures" className="nav-item nav-link">Upload images</NavLink>
+                <NavLink href="/account/imageupload" id="upload" className="nav-item nav-link">Upload images</NavLink>
                 <button onClick={userService.logout} className="btn btn-link nav-item nav-link ">Logout</button>
             </div>
         </nav>
