@@ -7,7 +7,6 @@ import Image from "next/image";
 
 import loginImg from 'pages/assets/Bothniabladet.png'
 
-import { Layout } from 'components/account';
 import { userService, alertService } from 'services';
 
 export default Login;
@@ -38,9 +37,8 @@ function Login() {
     }
 
     return (
-        <Layout>
 
-                <div className="min-h-screen flex flex-col items-center justify-center bg-gray-300">
+                <div className="min-h-screen flex flex-col items-center justify-center">
                 <h4 className="card-header bg-white">Logga in</h4>
                 <div className="card-body">
                     <form onSubmit={handleSubmit(onSubmit)}>
@@ -64,7 +62,6 @@ function Login() {
                 </div>
             </div>
             
-        </Layout> 
     )
     
 }
