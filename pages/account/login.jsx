@@ -63,17 +63,17 @@ function Login() {
                     </Link>
                 </div>
             </header>
-            <div className="min-h-screen flex flex-col items-center justify-center">
-                <h4 className="card-header font-bold text-xl pt-5 bg-white">Logga in</h4>
+            <div className="min-h-screen flex flex-col items-center justify-center bg-myColor-400">
+                <h4 className="card-header font-bold text-xl pt-5 bg-myColor-400">Logga in</h4>
                 <div className="card-body ">
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <div className=" py-4">
-                            <label className="form-label">Username</label>
+                            <label className="form-label font-extrabold">Username</label>
                             <input name="username" type="text" {...register('username')} className={`form-control ${errors.username ? 'is-invalid' : ''}`} />
                             <div className="invalid-feedback">{errors.username?.message}</div>
                         </div>
                         <div className="mb-3">
-                            <label className="form-label">Password</label>
+                            <label className="form-label font-extrabold">Password</label>
                             <input name="password" type="password" {...register('password')} className={`form-control ${errors.password ? 'is-invalid' : ''}`} />
                             <div className="invalid-feedback">{errors.password?.message}</div>
                         </div>
