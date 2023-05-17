@@ -1,7 +1,21 @@
+
 export async function search(options = {}) {
   const params = {
   ...options,
   //expression: query // Set the search expression to the provided query
+
+  /*
+
+    public_id:kanotklubbens logga
+    signature:{{signature}}
+    api_key:{{api_key}}
+    timestamp:{{$timestamp}}
+    display_name:Kanotklubben
+    folder:bothniabladet
+    tags:params
+    media_metadata:true
+
+  */
 };
 
   if ( options.nextCursor ) {

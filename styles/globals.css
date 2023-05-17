@@ -7,3 +7,7 @@
     clip-path: inset(0.6px);
   }
 }
+
+ul.grid > li {
+  margin-bottom: 3rem; /* Adjust the spacing as needed */
+}

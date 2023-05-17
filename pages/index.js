@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import Head from 'next/head'
 import Image from 'next/image'
 
+import { SearchBar } from 'components/SearchBar';
+import ImageModal from 'components/ImageModal';
 
 import { search, mapImageResources, getFolders } from '../helpers/cloudinary';
 
@@ -65,61 +67,50 @@ export default function Home({ images: defaultImages, nextCursor: defaultNextCur
   }, [activeFolder]);
 
   return (
-    <div class="container mx-auto max-w-full px-1">
-      <Head>
-        <title>My Images</title>
-        <meta name="description" content="All of my cool images." />
-      </Head>
+    <div className="min-h-screen mx-auto px-1 bg-myColor-100  flex-col justify-center items-center">
+      <SearchBar />
+      <h2 className="text-2xl font-bold mb-4">Folders</h2>
   
-      <div className="container mx-auto px-4">
-        <h1 className="sr-only">My Images</h1>
+      <ul className=".folder" onClick={handleOnFolderClick}>
+        {folders.map((folder) => {
+          const isActive = folder.path === activeFolder;
+          return (
+            <li key={folder.path} data-active-folder={isActive}>
+              <button className="px-5" data-folder-path={folder.path}>
+                {folder.name}
+              </button>
+            </li>
+          );
+        })}
+      </ul>
   
-        <h2 className="text-2xl font-bold mb-4">Folders</h2>
+      <h2 className="text-2xl font-bold mt-12 mb-4">Images</h2>
   
-        <ul className=".folder" onClick={handleOnFolderClick}>
-          {folders.map(folder => {
-            const isActive = folder.path === activeFolder;
-            return (
-              <li key={folder.path} data-active-folder={isActive}>
-                <button className="px-5" data-folder-path={folder.path}>
-                  { folder.name }
-                </button>
-              </li>
-            )
-          })}
-        </ul>
+      <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-x-6 gap-y-8">
+        {images.map((image) => {
+          return (
+            <li key={image.id} className="flex flex-col items-center">
+              <div className="aspect-w-2 aspect-h-3">
+                <Image width={image.width} height={image.height} src={image.image} alt="" className="object-cover" />
+              </div>
+              <a href={image.link} rel="noreferrer" className="container mt-2 text-lg font-medium text-gray-900">
+                {image.title}
+              </a>
+            </li>
+          );
+        })}
+      </ul>
   
-        <h2 className="text-2xl font-bold mt-12 mb-4">Images</h2>
-  
-        <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
-          {images.map((image) => {
-            return (
-              <li key={image.id} className="flex flex-col items-center">
-                <a href={image.link} rel="noreferrer" className="block">
-                  <div className="imageImage">
-                    <Image width={image.width} height={image.height} src={image.image} alt="" />
-                  </div>
-                  <h3 className="mt-2 text-lg font-medium text-gray-900">
-                    {image.title}
-                  </h3>
-                </a>
-              </li>
-            );
-          })}
-        </ul>
-
-
-  
-        {totalCount > images.length && (
-          <div className="mt-8">
-            <Button onClick={handleOnLoadMore} className="w-full">
-              Load More Results
-            </Button>
-          </div>
-        )}
-      </div>
+      {totalCount > images.length && (
+        <div className="mt-8">
+          <Button onClick={handleOnLoadMore} className="w-full">
+            Load More Results
+          </Button>
+        </div>
+      )}
     </div>
-  )
+  );
+  
   
 }
 
