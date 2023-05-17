@@ -50,17 +50,16 @@ function App({ Component, pageProps }) {
 
     return (
         <>
-            <Head>
-                <title>Bothniabladet</title>
-            </Head>
-
-            <div className={`app-container ${user ? 'bg-light' : ''}`}>
-                <Nav />
-                <Alert />
-                {authorized &&
-                    <Component {...pageProps} />
-                }
-            </div>
+          <Head>
+            <title>Bothniabladet</title>
+          </Head>
+      
+          <div className={`${user ? 'bg-myColor-300 flex-auto min-h-screen' : ''}`}>
+            <Nav />
+            <Alert />
+            {authorized && <Component {...pageProps} />}
+          </div>
         </>
-    );
+      );
+      
 }

@@ -7,25 +7,28 @@ import {render} from "react-dom/profiling";
 export { Nav };
 
 function Nav() {
-    const [user, setUser] = useState(null);
+  const [user, setUser] = useState(null);
 
-    useEffect(() => {
-        const subscription = userService.user.subscribe(x => setUser(x));
-        return () => subscription.unsubscribe();
-    }, []);
+  useEffect(() => {
+    const subscription = userService.user.subscribe((x) => setUser(x));
+    return () => subscription.unsubscribe();
+  }, []);
 
-    // only show nav when logged in
-    if (!user) return null;
+  // Only show nav when logged in
+  if (!user) return null;
 
+  
 
-    function customer() {
-        return <nav className="navbar navbar-expand navbar-dark bg-dark px-3">
-            <div className="navbar-nav">
-                <NavLink href="/" exact className="nav-item nav-link">Home</NavLink>
-                <button onClick={userService.logout} className="btn btn-link nav-item nav-link">Logout</button>
-            </div>
-        </nav>
-    }
+  function CustomerNav() {
+    return (
+      <nav className="navbar navbar-expand navbar-dark bg-myColor-500 px-3">
+        <div className="navbar-nav">
+          <NavLink href="/" exact className="nav-item nav-link">Home</NavLink>
+          <button onClick={userService.logout} className="btn btn-link nav-item nav-link">Logout</button>
+        </div>
+      </nav>
+    );
+  }
 
     function photographer(){
         return <nav className="navbar navbar-expand navbar-dark bg-dark px-3">
@@ -54,4 +57,13 @@ function Nav() {
     }
     return (admin());
 
+
+  if (user.userType === "customer") {
+    return <CustomerNav />;
+  } else if (user.userType === "photographer") {
+    return <PhotographerNav />;
+  }
+
+
+  return <AdminNav />;
 }

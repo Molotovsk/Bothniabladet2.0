@@ -38,31 +38,63 @@ function Login() {
     }
 
     return (
-
-                <div className="min-h-screen flex flex-col items-center justify-center">
-                <h4 className="card-header bg-white">Logga in</h4>
-                <div className="card-body">
+        <div>
+            <header className="flex justify-center bg-myColor-500">
+                <div className="flex flex-wrap items-center justify-around">
+                    <Link href="/startPage">
+                        <Image
+                            class="basis-1/8 shrink"
+                            src={require('/pages/assets/Bothniabladet.png')}
+                            alt="Bothniabladet logga"
+                            width={150}
+                            height={100}
+                            priority
+                        />
+                    </Link>
+                    <Link href="/startPage">
+                        <Image
+                            class="basis-1/2 shrink"
+                            src={require('/pages/assets/BothniabladetHeader.png')}
+                            alt="Bothniabladet logga"
+                            width={700}
+                            height={"auto"}
+                            priority
+                        />
+                    </Link>
+                </div>
+            </header>
+            <div className="flex justify-center py-24">
+            <div className="card m-5 w-96 bg-myColor-300">
+                <h4 className="card-header bg-myColor-500 font-extrabold">Logga in</h4>
+                <div className="card-body font-semibold">
                     <form onSubmit={handleSubmit(onSubmit)}>
-                        <div className="mb-5">
-                            <label className="form-label">Username</label>
+                        <div className=" py-4">
+                            <label className="form-label font-extrabold">Användarnamn</label>
                             <input name="username" type="text" {...register('username')} className={`form-control ${errors.username ? 'is-invalid' : ''}`} />
                             <div className="invalid-feedback">{errors.username?.message}</div>
                         </div>
-                        <div className="mb-3">
-                            <label className="form-label">Password</label>
+                        <div className="mb-4">
+                            <label className="form-label font-extrabold">Lösenord</label>
                             <input name="password" type="password" {...register('password')} className={`form-control ${errors.password ? 'is-invalid' : ''}`} />
                             <div className="invalid-feedback">{errors.password?.message}</div>
                         </div>
-                        <button disabled={formState.isSubmitting} className="loginButton">
+                        
+                        <div className="flex justify-center flex-row space-x-4">
+                        <button disabled={formState.isSubmitting} className="bg-myColor-500 w-24 h-10 rounded hover:bg-gray-300">
                             
                             {formState.isSubmitting && <span className="spinner-border spinner-border-sm me-1"></span>}
-                            Login
+                            Logga in
                         </button>
-                        <Link href="/account/register" className="registerButton">Register</Link>
+                        <button className="bg-myColor-500 w-24 h-10 rounded hover:bg-gray-300">
+                            <Link href="/account/register">Registrera</Link>
+                        </button>
+                        </div>
+                       
                     </form>
                 </div>
             </div>
-            
+            </div>
+        </div>    
     )
     
 }

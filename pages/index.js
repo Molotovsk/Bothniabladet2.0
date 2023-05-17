@@ -65,7 +65,7 @@ export default function Home({ images: defaultImages, nextCursor: defaultNextCur
   }, [activeFolder]);
 
   return (
-    <div class="grid grid-cols-[200px_minmax(900px,_1fr)_100px]">
+    <div class="container mx-auto max-w-full px-1">
       <Head>
         <title>My Images</title>
         <meta name="description" content="All of my cool images." />
@@ -91,22 +91,24 @@ export default function Home({ images: defaultImages, nextCursor: defaultNextCur
   
         <h2 className="text-2xl font-bold mt-12 mb-4">Images</h2>
   
-        <ul className="grid grid-cols-2 sm:grid-cols-5 lg:grid-cols-4 gap-4">
-          {images.map(image => {
+        <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
+          {images.map((image) => {
             return (
-              <li key={image.id}>
+              <li key={image.id} className="flex flex-col items-center">
                 <a href={image.link} rel="noreferrer" className="block">
-                  <div class="imageImage">
+                  <div className="imageImage">
                     <Image width={image.width} height={image.height} src={image.image} alt="" />
                   </div>
-                  <h3 className="mt-2 text-base font-medium text-gray-900">
-                    { image.title }
+                  <h3 className="mt-2 text-lg font-medium text-gray-900">
+                    {image.title}
                   </h3>
                 </a>
               </li>
-            )
+            );
           })}
         </ul>
+
+
   
         {totalCount > images.length && (
           <div className="mt-8">

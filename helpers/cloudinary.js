@@ -1,7 +1,8 @@
 export async function search(options = {}) {
   const params = {
-    ...options
-  }
+  ...options,
+  //expression: query // Set the search expression to the provided query
+};
 
   if ( options.nextCursor ) {
     params.next_cursor = options.nextCursor

@@ -13,7 +13,7 @@ export default function Start() {
         >
 
             <div>
-                <header className="flex justify-center">
+                <header className="flex justify-center bg-myColor-500">
 
                     <div class="flex flex-wrap items-center justify-around">
 

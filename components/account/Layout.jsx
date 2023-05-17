@@ -16,7 +16,7 @@ function Layout({ children }) {
     }, []);
 
     return (
-        <div className="Välkommen">
+        <div className="">
             {children}
         </div>
     );

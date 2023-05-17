@@ -25,11 +25,11 @@ function Alert() {
     if (!alert) return null;
 
     return (
-        <div className="container">
-            <div className="m-3">
+        <div className="container bg-myColor-500">
+            <div className="m-3 bg-myColor-500">
                 <div className={`alert alert-dismissible ${alert.type}`}>
                     {alert.message}
-                    <button type="button" className="btn-close" onClick={() => alertService.clear()}></button>
+                    <button type="button" className="btn-close bg-myColor-500" onClick={() => alertService.clear()}></button>
                 </div>
             </div>
         </div>
