@@ -19,7 +19,7 @@ function Nav() {
 
   
 
-  function CustomerNav() {
+  function customer() {
     return (
       <nav className="navbar navbar-expand navbar-dark bg-myColor-500 px-3">
         <div className="navbar-nav">
@@ -51,19 +51,9 @@ function Nav() {
     }
 
     if (user.userType === "customer") {
-        return (CustomerNav());
+        return (customer());
     }else if (user.userType === "photographer"){
         return (photographer());
     }
     return (admin());
-
-
-  if (user.userType === "customer") {
-    return <CustomerNav />;
-  } else if (user.userType === "photographer") {
-    return <PhotographerNav />;
-  }
-
-
-  return <AdminNav />;
 }
