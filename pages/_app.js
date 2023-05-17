@@ -7,7 +7,7 @@ import 'styles/globals.css';
 import { userService } from 'services';
 import { Nav, Alert } from 'components';
 
-export default App;
+
 
 function App({ Component, pageProps }) {
     const router = useRouter();
@@ -63,3 +63,5 @@ function App({ Component, pageProps }) {
       );
       
 }
+
+export default App;

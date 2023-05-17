@@ -3,7 +3,7 @@ import styles from '/styles/Home.module.css'
 import { useState } from "react";
 import Head from "next/head";
 import {createSignature} from "../../helpers/generateCloudinarySignature";
-export default function Home() {
+export default function Upload() {
     const [imageSrc, setImageSrc] = useState();
     const [uploadData, setUploadData] = useState();
 
