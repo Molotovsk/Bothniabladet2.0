@@ -51,7 +51,7 @@ function Nav() {
     }
 
     if (user.userType === "customer") {
-        return ( customer() );
+        return (CustomerNav());
     }else if (user.userType === "photographer"){
         return (photographer());
     }
