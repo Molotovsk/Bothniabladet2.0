@@ -8,6 +8,8 @@ import { search, mapImageResources } from '../helpers/cloudinary';
 
 
 
+
+
 //import { search, mapImageResources } from '../helpers/cloudinary';
 
 
@@ -17,6 +19,24 @@ export default function Home({ images: defaultImages, totalCount: defaultTotalCo
 
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
+
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const handleSearch = async (query) => {
+    try {
+      const results = await search({ expression: query });
+      const { resources } = results;
+      const images = mapImageResources(resources);
+      setImages(images);
+      setTotalCount(images.length);
+    } catch (error) {
+      console.error('Error occurred during search:', error);
+    }
+  };
+  
+
+
+
 
     // Function to handle opening the modal
     const handleOpenModal = (image) => {
@@ -34,7 +54,11 @@ export default function Home({ images: defaultImages, totalCount: defaultTotalCo
 
   return (
     <div className="min-h-screen mx-auto px-1 bg-myColor-100  flex-col justify-center items-center">
-      <SearchBar />
+      <SearchBar
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        handleSearch={() => handleSearch(searchQuery)}
+      />
   
       <h2 className="text-2xl font-bold mt-12 mb-4">Bilder</h2>
   
@@ -61,45 +85,15 @@ export default function Home({ images: defaultImages, totalCount: defaultTotalCo
 
 
 export async function getStaticProps() {
-  
-  const results = await search({
-    expression: 'groda'
-  });
-  console.log(results)
-
+  const results = await search({ expression: '' });
+  console.log.results
   const { resources } = results;
-
   const images = mapImageResources(resources);
 
   return {
     props: {
       images,
-      results,
-    }
-  }
+      totalCount: images.length,
+    },
+  };
 }
-
-
-
-
-/*
-export async function getStaticProps() {
-  const results = await search({
-    expression: 'folder=""'
-  });
-
-  const { resources, next_cursor: nextCursor, total_count: totalCount } = results;
-
-  const images = mapImageResources(resources);
-
-  const { folders } = await getFolders();
-
-  return {
-    props: {
-      images,
-      nextCursor: nextCursor || false,
-      totalCount,
-      folders
-    }
-  }
-} */

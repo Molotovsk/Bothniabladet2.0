@@ -1,10 +1,12 @@
+import { config } from 'pages/config';
+
 export async function search(query = {}) {
 
   const paramString = query;
 
-  const results = await fetch(`https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/resources/search/`, {
+  const results = await fetch(`https://api.cloudinary.com/v1_1/${config.cloudiary.CLOUD_NAME}/resources/search/`, {
     headers: {
-      Authorization: `Basic ${Buffer.from(process.env.CLOUDINARY_API_KEY + ':' + process.env.CLOUDINARY_API_SECRET).toString('base64')}`,
+      Authorization: `Basic ${Buffer.from(config.cloudiary.API_KEY + ':' + config.cloudiary.API_SECRET).toString('base64')}`,
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(query),
@@ -29,8 +31,8 @@ export function mapImageResources(resources) {
       id: resource.asset_id,
       title: resource.public_id,
       image: resource.secure_url,
-      width: resource.width,
-      height: resource.height,
+      width,
+      height,
     };
   });
 }

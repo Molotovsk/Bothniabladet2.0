@@ -1,20 +1,19 @@
 import React, { useState } from 'react';
 import { search, mapImageResources } from '../helpers/cloudinary';
 
-export { SearchBar };
-
-function SearchBar() {
+export function SearchBar() {
   const [searchQuery, setSearchQuery] = useState('');
 
   const handleSearch = async () => {
     // Perform the search with the searchQuery value
     const results = await search({
-      expression: `${searchQuery}`,
+      expression: searchQuery,
     });
+    console.log.searchQuery
 
     // Process the search results
-    const { resources } = searchQuery;
-    const images = mapImageResources(results);
+    const { resources } = results;
+    const images = mapImageResources(resources);
 
     // Do something with the images...
     console.log(images);
