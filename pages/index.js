@@ -5,14 +5,14 @@ import Image from 'next/image'
 import { SearchBar } from 'components/SearchBar';
 import ImageModal from 'components/ImageModal';
 
-import { search, mapImageResources, getFolders } from '../helpers/cloudinary';
+
+import { search, mapImageResources } from '../helpers/cloudinary';
 
 
-export default function Home({ images: defaultImages, nextCursor: defaultNextCursor, totalCount: defaultTotalCount, folders }) {
+export default function Home({ images: defaultImages, nextCursor: defaultNextCursor, totalCount: defaultTotalCount }) {
   const [images, setImages] = useState(defaultImages);
   const [nextCursor, setNextCursor] = useState(defaultNextCursor);
   const [totalCount, setTotalCount] = useState(defaultTotalCount);
-  const [activeFolder, setActiveFolder] = useState();
 
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
@@ -29,13 +29,26 @@ export default function Home({ images: defaultImages, nextCursor: defaultNextCur
       setModalOpen(false);
     }
 
+  function mapImageResources(resources) {
+      return resources.map(resource => {
+        const { width, height } = resource;
+        return {
+          id: resource.asset_id,
+          title: resource.public_id,
+          image: resource.secure_url,
+          width,
+          height,
+        };
+      });
+    }
+
   async function handleOnLoadMore(e) {
     e.preventDefault();
 
     const results = await fetch('/api/search', {
       method: 'POST',
       body: JSON.stringify({
-        expression: `folder=""`,
+        expression: `""`,
         nextCursor
       })
     }).then(r => r.json());
@@ -54,52 +67,12 @@ export default function Home({ images: defaultImages, nextCursor: defaultNextCur
     setTotalCount(updatedTotalCount);
   }
 
-  function handleOnFolderClick(e) {
-    const folderPath = e.target.dataset.folderPath;
-    setActiveFolder(folderPath)
-    setNextCursor(undefined);
-    setImages([]);
-    setTotalCount(0);
-  }
-
-  useEffect(() => {
-    (async function run() {
-      const results = await fetch('/api/search', {
-        method: 'POST',
-        body: JSON.stringify({
-          expression: `folder="${activeFolder || ''}"`
-        })
-      }).then(r => r.json());
-
-      const { resources, next_cursor: nextPageCursor, total_count: updatedTotalCount } = results;
-
-      const images = mapImageResources(resources);
-
-      setImages(images);
-      setNextCursor(nextPageCursor);
-      setTotalCount(updatedTotalCount);
-    })();
-  }, [activeFolder]);
 
   return (
     <div className="min-h-screen mx-auto px-1 bg-myColor-100  flex-col justify-center items-center">
       <SearchBar />
-      <h2 className="text-2xl font-bold mb-4">Folders</h2>
   
-      <ul className=".folder" onClick={handleOnFolderClick}>
-        {folders.map((folder) => {
-          const isActive = folder.path === activeFolder;
-          return (
-            <li key={folder.path} data-active-folder={isActive}>
-              <button className="px-5" data-folder-path={folder.path}>
-                {folder.name}
-              </button>
-            </li>
-          );
-        })}
-      </ul>
-  
-      <h2 className="text-2xl font-bold mt-12 mb-4">Images</h2>
+      <h2 className="text-2xl font-bold mt-12 mb-4">Bilder</h2>
   
       <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-x-6 gap-y-8">
         {images.map((image) => {
@@ -118,9 +91,6 @@ export default function Home({ images: defaultImages, nextCursor: defaultNextCur
   
       {totalCount > images.length && (
         <div className="mt-8">
-          <Button onClick={handleOnLoadMore} className="w-full">
-            Load More Results
-          </Button>
         </div>
       )}
     </div>
@@ -129,6 +99,27 @@ export default function Home({ images: defaultImages, nextCursor: defaultNextCur
   
 }
 
+export async function getStaticProps() {
+  const results = await search({
+    expression:(''),
+    max_results:(20),
+  })
+
+
+  const { resources, next_cursor: nextCursor } = results;
+
+  const images = mapImageResources(resources);
+
+  return {
+    props: {
+      images,
+      nextCursor: nextCursor || false,
+    }
+  }
+}
+
+
+/*
 export async function getStaticProps() {
   const results = await search({
     expression: 'folder=""'
@@ -148,4 +139,4 @@ export async function getStaticProps() {
       folders
     }
   }
-}
+} */
