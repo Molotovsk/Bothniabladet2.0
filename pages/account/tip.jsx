@@ -58,7 +58,6 @@ export default function Tip() {
 
     return (
         <main>
-
             <div>
                 <header className="flex justify-center">
 
@@ -174,7 +173,6 @@ export default function Tip() {
                     </div>
                 </form>
             </div>
-
         </main>
     )
 }

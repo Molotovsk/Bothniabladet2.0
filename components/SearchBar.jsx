@@ -5,7 +5,7 @@ export { SearchBar };
 
 function SearchBar () {
   return (
-    <div className="flex items-center justify-center items-center">
+    <div className="flex items-center justify-center items-center pt-4">
       <input
         type="text"
         placeholder="Sök efter bilder här..."

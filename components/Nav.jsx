@@ -3,6 +3,9 @@ import { useState, useEffect } from 'react';
 import { NavLink } from '.';
 import { userService } from 'services';
 
+import Link from 'next/link';
+import Image from "next/image";
+
 
 export { Nav };
 
@@ -22,7 +25,17 @@ function Nav() {
 
   function customer() {
     return (
-      <nav className="navbar navbar-expand navbar-dark bg-gradient-to-r from-teal-400 to-yellow-200 px-3">
+      <nav className="navbar navbar-expand navbar-dark bg-myColor-500 pt-4 flex flex-col">
+        <div>
+          <Image
+            class="basis-1/2 shrink"
+            src={require('/pages/assets/BothniabladetHeader.png')}
+            alt="Bothniabladet logga"
+            width={700}
+            height={"auto"}
+            priority
+          />
+        </div>
         <div className="navbar-nav">
           <NavLink href="/" exact className="nav-item nav-link">Hem</NavLink>
           <button onClick={userService.logout} className="btn btn-link nav-item nav-link">Logga ut</button>
@@ -32,22 +45,44 @@ function Nav() {
   }
 
     function photographer(){
-        return <nav className="navbar navbar-expand navbar-dark bg-myColor-500 px-3">
+      return (
+        <nav className="navbar navbar-expand navbar-dark bg-myColor-500 pt-4 flex flex-col">
+            <div>
+              <Image
+                class="basis-1/2 shrink"
+                src={require('/pages/assets/BothniabladetHeader.png')}
+                alt="Bothniabladet logga"
+                width={700}
+                height={"auto"}
+                priority
+              />
+            </div>
             <div className="navbar-nav">
                 <NavLink href="/" exact className="nav-item nav-link">Hem</NavLink>
                 <NavLink href="/account/imageupload" id="upload" className="nav-item nav-link">Ladda upp bilder</NavLink>
                 <button onClick={userService.logout} className="btn btn-link nav-item nav-link">Logga ut</button>
             </div>
         </nav>
+      )
     }
     function admin() {
-        return <nav className="navbar navbar-expand navbar-dark bg-gradient-to-r bg-myColor-500 border-spacing-60 px-3">
-            <div className="navbar-nav">
-                <NavLink href="/" exact className="nav-item nav-link">Hem</NavLink>
-                <NavLink href="/users" id="users" className="nav-item nav-link">Användare</NavLink>
-                <NavLink href="/account/imageupload" id="upload" className="nav-item nav-link">Ladda upp bilder</NavLink>
-                <button onClick={userService.logout} className="btn btn-link nav-item nav-link ">Logga ut</button>
-            </div>
+        return <nav className="navbar navbar-expand navbar-dark bg-myColor-500 pt-4 flex flex-col">
+          <div>
+            <Image
+              class="basis-1/2 shrink"
+              src={require('/pages/assets/BothniabladetHeader.png')}
+              alt="Bothniabladet logga"
+              width={700}
+              height={"auto"}
+              priority
+              />   
+          </div>
+          <div className="navbar-nav">
+              <NavLink href="/" exact className="nav-item nav-link">Hem</NavLink>
+              <NavLink href="/users" id="users" className="nav-item nav-link">Användare</NavLink>
+              <NavLink href="/account/imageupload" id="upload" className="nav-item nav-link">Ladda upp bilder</NavLink>
+              <button onClick={userService.logout} className="btn btn-link nav-item nav-link ">Logga ut</button>
+          </div>
         </nav>
     }
 
