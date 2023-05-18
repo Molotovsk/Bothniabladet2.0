@@ -116,19 +116,19 @@ function imageupload() {
 
                         <input id="file" type="file" name="file" className="mb-6"/>
 
-                        <input id="caption" type="text" placeholder="Caption" className="mb-6"/>
+                        <input id="caption" type="text" placeholder="Bildtext" className="mb-6"/>
 
-                        <input id="description" type="text" placeholder="Description" className="mb-6"/>
+                        <input id="description" type="text" placeholder="Beskrivning" className="mb-6"/>
 
-                        <input id="tags" type="text" placeholder="Tags" className="mb-6"/>
+                        <input id="tags" type="text" placeholder="Taggar" className="mb-6"/>
 
-                        <input id="coordinates" type="text" placeholder="Coordinates" className="mb-6"/>
+                        <input id="coordinates" type="text" placeholder="Koordinater" className="mb-6"/>
 
-                        <input id="photographer" type="text" placeholder="Photographer" className="mb-6"/>
+                        <input id="photographer" type="text" placeholder="Fotograf" className="mb-6"/>
 
                         {!uploadData && (
                     <button className="border-8 border-green-700 rounded-md bg-green-700" >
-                        Upload files
+                        Ladda upp fil
                     </button>
                             )}
 
