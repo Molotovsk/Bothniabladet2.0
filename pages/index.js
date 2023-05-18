@@ -40,12 +40,13 @@ export default function Home({ images: defaultImages, totalCount: defaultTotalCo
 
     return (
       <div className="min-h-screen mx-auto px-1 bg-myColor-100  flex-col justify-center items-center">
+
         <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} handleSearch={handleSearch} />
-  
+
   
       <h2 className="text-2xl font-bold mt-12 mb-4">Bilder</h2>
   
-      <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-x-6 gap-y-8">
+      <ul className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-2 xl:grid-cols-6 gap-x-6 gap-y-8">
         {images.map((image) => {
           return (
             <li key={image.id} className="flex flex-col items-center">
@@ -53,7 +54,7 @@ export default function Home({ images: defaultImages, totalCount: defaultTotalCo
                 <Image width={image.width} height={image.height} src={image.image} alt="hej" className="object-cover" />
               </div>
               <a href={image.title} className="container mx-auto px-1 mt-2 text-current font-semibold text-c">
-                <h1>{image.title} Pris</h1>
+                <h1>{image.title}</h1>
               </a>
             </li>
           );
