@@ -13,7 +13,7 @@ const nextConfig = {
         ? 'http://localhost:3000/api' // development api
         : 'http://localhost:3000/api' // production api
   },
-
+  
 }
 
 module.exports = nextConfig

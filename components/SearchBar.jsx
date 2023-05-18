@@ -13,7 +13,7 @@ function SearchBar() {
     });
 
     // Process the search results
-    const { resources } = results;
+    const { resources } = searchQuery;
     const images = mapImageResources(resources);
 
     // Do something with the images...

@@ -1,35 +1,27 @@
 export async function search(options = {}) {
-  const { expression, ...params } = options;
-
-  const searchParams = {
-    ...params,
-    expression: expression || '',
-  };
-
-  if (options.nextCursor) {
-    searchParams.next_cursor = options.nextCursor;
-    delete searchParams.nextCursor;
+  const params = {
+    ...options
   }
 
-  const paramString = Object.keys(searchParams)
-    .map(key => `${key}=${encodeURIComponent(searchParams[key])}`)
-    .join('&');
 
-  const results = await fetch(
-    `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/resources/search?${paramString}`,
-    {
-      headers: {
-        Authorization: `Basic ${Buffer.from(
-          process.env.CLOUDINARY_API_KEY + ':' + process.env.CLOUDINARY_API_SECRET
-        ).toString('base64')}`,
-      },
+  const paramString = "ledsen";
+
+  const results = await fetch(`https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/resources/search?${paramString}`, {
+    headers: {
+      Authorization: `Basic ${Buffer.from(process.env.CLOUDINARY_API_KEY + ':' + process.env.CLOUDINARY_API_SECRET).toString('base64')}`
     }
-  ).then(r => r.json());
+  }).then(r => r.json());
 
   return results;
 }
 
+
 export function mapImageResources(resources) {
+  if (!Array.isArray(resources)) {
+    console.error('Invalid resources array');
+    return [];
+  }
+
   return resources.map(resource => {
     const { width, height } = resource;
     return {
@@ -41,4 +33,3 @@ export function mapImageResources(resources) {
     };
   });
 }
-

@@ -3,15 +3,16 @@ import Head from 'next/head'
 import Image from 'next/image'
 
 import { SearchBar } from 'components/SearchBar';
-import ImageModal from 'components/ImageModal';
-
 
 import { search, mapImageResources } from '../helpers/cloudinary';
 
 
-export default function Home({ images: defaultImages, nextCursor: defaultNextCursor, totalCount: defaultTotalCount }) {
+
+//import { search, mapImageResources } from '../helpers/cloudinary';
+
+
+export default function Home({ images: defaultImages, totalCount: defaultTotalCount }) {
   const [images, setImages] = useState(defaultImages);
-  const [nextCursor, setNextCursor] = useState(defaultNextCursor);
   const [totalCount, setTotalCount] = useState(defaultTotalCount);
 
   const [modalOpen, setModalOpen] = useState(false);
@@ -29,43 +30,6 @@ export default function Home({ images: defaultImages, nextCursor: defaultNextCur
       setModalOpen(false);
     }
 
-  function mapImageResources(resources) {
-      return resources.map(resource => {
-        const { width, height } = resource;
-        return {
-          id: resource.asset_id,
-          title: resource.public_id,
-          image: resource.secure_url,
-          width,
-          height,
-        };
-      });
-    }
-
-  async function handleOnLoadMore(e) {
-    e.preventDefault();
-
-    const results = await fetch('/api/search', {
-      method: 'POST',
-      body: JSON.stringify({
-        expression: `""`,
-        nextCursor
-      })
-    }).then(r => r.json());
-
-    const { resources, next_cursor: nextPageCursor, total_count: updatedTotalCount } = results;
-
-    const images = mapImageResources(resources);
-
-    setImages(prev => {
-      return [
-        ...prev,
-        ...images
-      ]
-    });
-    setNextCursor(nextPageCursor);
-    setTotalCount(updatedTotalCount);
-  }
 
 
   return (
@@ -78,11 +42,11 @@ export default function Home({ images: defaultImages, nextCursor: defaultNextCur
         {images.map((image) => {
           return (
             <li key={image.id} className="flex flex-col items-center">
-              <div className="aspect-w-2 aspect-h-3">
+              <div className="aspect-w-2 aspect-h-4">
                 <Image width={image.width} height={image.height} src={image.image} alt="" className="object-cover" />
               </div>
-              <a href={image.link} rel="noreferrer" className="container mt-2 text-lg font-medium text-gray-900">
-                {image.title}
+              <a href={image.title} className="container mx-auto px-1 mt-2 text-current font-semibold text-c">
+                <h1>{image.title} Pris</h1>
               </a>
             </li>
           );
@@ -99,24 +63,27 @@ export default function Home({ images: defaultImages, nextCursor: defaultNextCur
   
 }
 
+
+
 export async function getStaticProps() {
   const results = await search({
-    expression:(''),
+    expression:('ledsen'),
     max_results:(20),
   })
 
 
-  const { resources, next_cursor: nextCursor } = results;
+  const { resources } = results;
 
   const images = mapImageResources(resources);
 
   return {
     props: {
       images,
-      nextCursor: nextCursor || false,
     }
   }
 }
+
+
 
 
 /*
