@@ -9,12 +9,12 @@ function SearchBar() {
   const handleSearch = async () => {
     // Perform the search with the searchQuery value
     const results = await search({
-      expression: `tags=${searchQuery}`,
+      expression: `${searchQuery}`,
     });
 
     // Process the search results
     const { resources } = searchQuery;
-    const images = mapImageResources(resources);
+    const images = mapImageResources(results);
 
     // Do something with the images...
     console.log(images);
