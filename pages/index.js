@@ -14,6 +14,21 @@ export default function Home({ images: defaultImages, nextCursor: defaultNextCur
   const [totalCount, setTotalCount] = useState(defaultTotalCount);
   const [activeFolder, setActiveFolder] = useState();
 
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
+
+    // Function to handle opening the modal
+    const handleOpenModal = (image) => {
+      setSelectedImage(image);
+      setModalOpen(true);
+    };
+  
+    // Function to handle closing the modal
+    const handleCloseModal = () => {
+      setSelectedImage(null);
+      setModalOpen(false);
+    }
+
   async function handleOnLoadMore(e) {
     e.preventDefault();
 

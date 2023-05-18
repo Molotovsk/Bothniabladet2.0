@@ -1,7 +1,7 @@
 
 
 
-const API_SECRET = "MqyeLqqS8jZb-C0eLKBXH5RbQmc";
+const API_SECRET = "ZgjbxrL-GJ3WgIrTwjx7yuh5NhU";
 const crypto = require('crypto');
 export function createSignature(params) {
 
