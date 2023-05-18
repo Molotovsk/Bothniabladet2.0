@@ -5,6 +5,8 @@ export function SearchBar() {
   const [searchQuery, setSearchQuery] = useState('');
 
   const handleSearch = async () => {
+
+    console.log.searchQuery
     // Perform the search with the searchQuery value
     const results = await search({
       expression: searchQuery,

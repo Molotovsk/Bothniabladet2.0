@@ -1,30 +1,17 @@
-import { useState, useEffect } from 'react';
-import Head from 'next/head'
-import Image from 'next/image'
-
+import { useState } from 'react';
+import Head from 'next/head';
+import Image from 'next/image';
 import { SearchBar } from 'components/SearchBar';
-
 import { search, mapImageResources } from '../helpers/cloudinary';
-
-
-
-
-
-//import { search, mapImageResources } from '../helpers/cloudinary';
-
 
 export default function Home({ images: defaultImages, totalCount: defaultTotalCount }) {
   const [images, setImages] = useState(defaultImages);
   const [totalCount, setTotalCount] = useState(defaultTotalCount);
-
-  const [modalOpen, setModalOpen] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(null);
-
   const [searchQuery, setSearchQuery] = useState('');
 
-  const handleSearch = async (query) => {
+  const handleSearch = async () => {
     try {
-      const results = await search({ expression: query });
+      const results = await search({ expression: searchQuery });
       const { resources } = results;
       const images = mapImageResources(resources);
       setImages(images);
@@ -33,7 +20,6 @@ export default function Home({ images: defaultImages, totalCount: defaultTotalCo
       console.error('Error occurred during search:', error);
     }
   };
-  
 
 
 
@@ -52,13 +38,10 @@ export default function Home({ images: defaultImages, totalCount: defaultTotalCo
 
 
 
-  return (
-    <div className="min-h-screen mx-auto px-1 bg-myColor-100  flex-col justify-center items-center">
-      <SearchBar
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-        handleSearch={() => handleSearch(searchQuery)}
-      />
+    return (
+      <div className="min-h-screen mx-auto px-1 bg-myColor-100  flex-col justify-center items-center">
+        <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} handleSearch={handleSearch} />
+  
   
       <h2 className="text-2xl font-bold mt-12 mb-4">Bilder</h2>
   
@@ -86,7 +69,6 @@ export default function Home({ images: defaultImages, totalCount: defaultTotalCo
 
 export async function getStaticProps() {
   const results = await search({ expression: '' });
-  console.log.results
   const { resources } = results;
   const images = mapImageResources(resources);
 
