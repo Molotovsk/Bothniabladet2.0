@@ -3,80 +3,59 @@ import Head from 'next/head';
 import Image from 'next/image';
 import { SearchBar } from 'components/SearchBar';
 import { search, mapImageResources } from '../helpers/cloudinary';
-
-export default function Home({ images: defaultImages, totalCount: defaultTotalCount }) {
-  const [images, setImages] = useState(defaultImages);
-  const [totalCount, setTotalCount] = useState(defaultTotalCount);
-  const [searchQuery, setSearchQuery] = useState('');
-
-  const handleSearch = async () => {
-    try {
-      const results = await search({ expression: searchQuery });
-      const { resources } = results;
-      const images = mapImageResources(resources);
-      setImages(images);
-      setTotalCount(images.length);
-    } catch (error) {
-      console.error('Error occurred during search:', error);
-    }
-  };
+import Gallery from "../components/ImageDetail";
 
 
-
-
-    // Function to handle opening the modal
-    const handleOpenModal = (image) => {
-      setSelectedImage(image);
-      setModalOpen(true);
-    };
-  
-    // Function to handle closing the modal
-    const handleCloseModal = () => {
-      setSelectedImage(null);
-      setModalOpen(false);
-    }
-
-
-
-    return (
-      <div className="min-h-screen mx-auto px-1 bg-myColor-100  flex-col justify-center items-center">
-
-        <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} handleSearch={handleSearch} />
-
-  
-      <h2 className="text-2xl font-bold mt-12 mb-4">Bilder</h2>
-  
-      <ul className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-2 xl:grid-cols-6 gap-x-6 gap-y-8">
-        {images.map((image) => {
-          return (
-            <li key={image.id} className="flex flex-col items-center">
-              <div className="aspect-w-2 aspect-h-4">
-                <Image width={image.width} height={image.height} src={image.image} alt="hej" className="object-cover" />
-              </div>
-              <a href={image.title} className="container mx-auto px-1 mt-2 text-current font-semibold text-c">
-                <h1>{image.title}</h1>
-              </a>
-            </li>
-          );
-        })}
-      </ul>
+export default function Home({ stuff }) {
+  const [photos, setPhotos] = useState(stuff);
+  const [search, setSearch] = useState("");
+  return (
+    <div className={styles.container}>
+      <Head>
+        <title>Photo Gallery</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <main className={styles.main}>
+        <input
+          onChange={(e) => setSearch(e.target.value)}
+          className={styles.searchInput}
+          type="text"
+          placeholder="Search for an image"
+        ></input>
+        <button
+          className="button"
+          disabled={search === ""}
+          onClick={async () => {
+            const results = await fetch(
+              `http://localhost:1337/api/photos?populate=*&filters\[name\][$eq]=${search}`
+            );
+            const details = await results.json();
+            setPhotos(await details);
+          }}
+        >
+          Find
+        </button>
+        <div className={styles.fade}>
+          <div className={styles.gridContainer}>
+            {photos &&
+              photos.data.map((detail) => (
+                <Gallery
+                  key={detail.id}
+                  thumbnailUrl={detail.attributes.img.data.attributes.formats.thumbnail.url}
+                  title={detail.attributes.name}
+                  id={detail.id}
+                />
+              ))}
+          </div>
+        </div>
+      </main>
     </div>
   );
-  
-  
 }
-
-
-
 export async function getStaticProps() {
-  const results = await search({ expression: '' });
-  const { resources } = results;
-  const images = mapImageResources(resources);
-
+  const results = await fetch("http://localhost:1337/api/photos?populate=*");
+  const stuff = await results.json();
   return {
-    props: {
-      images,
-      totalCount: images.length,
-    },
+    props: { stuff },
   };
 }

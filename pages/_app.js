@@ -14,7 +14,7 @@ function App({ Component, pageProps }) {
     const [user, setUser] = useState(null);
     const [authorized, setAuthorized] = useState(false);
 
-    useEffect(() => {
+    useEffect(() => { 
         // on initial load - run auth check 
         authCheck(router.asPath);
 
