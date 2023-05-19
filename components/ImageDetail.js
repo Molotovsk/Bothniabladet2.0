@@ -1,13 +1,17 @@
 import Image from "next/image";
 import Link from "next/link";
-export default function Gallery({ thumbnailUrl, title, id }) {
+
+export default function Gallery({ photoUrl, title, id }) {
   return (
     <div>
-      <Link as={`/preview/${id}`} href="/preview/[id]">
-        <a>
-          <Image width={600} height={600} src={thumbnailUrl} />
-          <div className="photoid"> {title}</div>
-        </a>
+      <Link href="/preview/[id]" as={`/preview/${id}`}>
+        <Image
+          width={800}
+          height={800}
+          src={photoUrl}
+          alt="Bilden"
+          title={title}
+        />
       </Link>
     </div>
   );
