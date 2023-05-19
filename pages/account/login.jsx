@@ -38,7 +38,7 @@ function Login() {
     }
 
     return (
-        <div>
+        <div className="min-h-screen bg-myColor-100">
             <header className="flex justify-center bg-myColor-500">
                 <div className="flex flex-wrap items-center justify-around">
                     <Link href="/startPage">
@@ -64,35 +64,34 @@ function Login() {
                 </div>
             </header>
             <div className="flex justify-center py-24">
-            <div className="card m-5 w-96 bg-myColor-300">
-                <h4 className="card-header bg-myColor-500 font-extrabold">Logga in</h4>
-                <div className="card-body font-semibold">
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                        <div className=" py-4">
-                            <label className="form-label font-extrabold">Användarnamn</label>
-                            <input name="username" type="text" {...register('username')} className={`form-control ${errors.username ? 'is-invalid' : ''}`} />
-                            <div className="invalid-feedback">{errors.username?.message}</div>
-                        </div>
-                        <div className="mb-4">
-                            <label className="form-label font-extrabold">Lösenord</label>
-                            <input name="password" type="password" {...register('password')} className={`form-control ${errors.password ? 'is-invalid' : ''}`} />
-                            <div className="invalid-feedback">{errors.password?.message}</div>
-                        </div>
-                        
-                        <div className="flex justify-center flex-row space-x-4">
-                        <button disabled={formState.isSubmitting} className="bg-myColor-500 w-24 h-10 rounded hover:bg-gray-300">
+                <div className="card m-5 w-96 bg-myColor-300">
+                    <h4 className="card-header bg-myColor-500 font-extrabold">Logga in</h4>
+                    <div className="card-body font-semibold">
+                        <form onSubmit={handleSubmit(onSubmit)}>
+                            <div className=" py-4">
+                                <label className="form-label font-extrabold">Användarnamn</label>
+                                <input name="username" type="text" {...register('username')} className={`form-control ${errors.username ? 'is-invalid' : ''}`} />
+                                <div className="invalid-feedback">{errors.username?.message}</div>
+                            </div>
+                            <div className="mb-4">
+                                <label className="form-label font-extrabold">Lösenord</label>
+                                <input name="password" type="password" {...register('password')} className={`form-control ${errors.password ? 'is-invalid' : ''}`} />
+                                <div className="invalid-feedback">{errors.password?.message}</div>
+                            </div>
                             
-                            {formState.isSubmitting && <span className="spinner-border spinner-border-sm me-1"></span>}
-                            Logga in
-                        </button>
-                        <button className="bg-myColor-500 w-24 h-10 rounded hover:bg-gray-300">
-                            <Link href="/account/register">Registrera</Link>
-                        </button>
-                        </div>
-                       
-                    </form>
+                            <div className="flex justify-center flex-row space-x-4">
+                            <button disabled={formState.isSubmitting} className="bg-myColor-500 w-24 h-10 rounded hover:bg-gray-300">
+                                
+                                {formState.isSubmitting && <span className="spinner-border spinner-border-sm me-1"></span>}
+                                Logga in
+                            </button>
+                            <button className="bg-myColor-500 w-24 h-10 rounded hover:bg-gray-300">
+                                <Link href="/account/register">Registrera</Link>
+                            </button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-            </div>
             </div>
         </div>    
     )

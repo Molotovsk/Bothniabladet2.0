@@ -39,7 +39,7 @@ function Register() {
     }
 
     return (
-        <div>
+        <div className="min-h-screen bg-myColor-100">
             <header className="flex justify-center bg-myColor-500">
                 <div className="flex flex-wrap items-center justify-around">
                     <Link href="/startPage">

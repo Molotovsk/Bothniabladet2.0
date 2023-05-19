@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { search, mapImageResources } from '../helpers/cloudinary';
 
+
 export function SearchBar() {
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -22,7 +23,7 @@ export function SearchBar() {
   };
 
   return (
-    <div className="flex justify-center items-center">
+    <div className="flex items-center justify-center items-center pt-4">
       <input
         type="text"
         placeholder="Sök efter bilder här..."
