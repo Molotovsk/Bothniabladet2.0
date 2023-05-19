@@ -9,7 +9,13 @@ export async function search(query = {}) {
       Authorization: `Basic ${Buffer.from(config.cloudiary.API_KEY + ':' + config.cloudiary.API_SECRET).toString('base64')}`,
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(query),
+    body: JSON.stringify({
+      "expression": "",
+      "with_field": [
+        "context",
+        "tags"
+      ]
+    }),
     method: 'POST'
   }).then(r => r.json());
 
@@ -26,13 +32,19 @@ export function mapImageResources(resources) {
   }
 
   return resources.map(resource => {
-    const { width, height } = resource;
+    const { width, height, tags, context, public_id } = resource;
+    const { alt, caption } = context || {}; // Provide a default empty object if context is undefined
+
     return {
       id: resource.asset_id,
-      title: resource.public_id,
+      title: caption || public_id,
       image: resource.secure_url,
       width,
       height,
+      tags,
+      alt: alt || '', // Provide a default value for alt if it is undefined
     };
   });
 }
+
+
