@@ -1,40 +1,30 @@
+import { config } from 'pages/config';
 
-export async function search(options = {}) {
-  const params = {
-  ...options,
-  //expression: query // Set the search expression to the provided query
+export async function search(query = {}) {
 
-  /*
+  const paramString = query;
 
-    public_id:kanotklubbens logga
-    signature:{{signature}}
-    api_key:{{api_key}}
-    timestamp:{{$timestamp}}
-    display_name:Kanotklubben
-    folder:bothniabladet
-    tags:params
-    media_metadata:true
-
-  */
-};
-
-  if ( options.nextCursor ) {
-    params.next_cursor = options.nextCursor
-    delete params.nextCursor;
-  }
-
-  const paramString = Object.keys(params).map(key => `${key}=${encodeURIComponent(params[key])}`).join('&');
-
-  const results = await fetch(`https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/resources/search?${paramString}`, {
+  const results = await fetch(`https://api.cloudinary.com/v1_1/${config.cloudiary.CLOUD_NAME}/resources/search/`, {
     headers: {
-      Authorization: `Basic ${Buffer.from(process.env.CLOUDINARY_API_KEY + ':' + process.env.CLOUDINARY_API_SECRET).toString('base64')}`
-    }
+      Authorization: `Basic ${Buffer.from(config.cloudiary.API_KEY + ':' + config.cloudiary.API_SECRET).toString('base64')}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(query),
+    method: 'POST'
   }).then(r => r.json());
+
+  console.log.results;
 
   return results;
 }
 
+
 export function mapImageResources(resources) {
+  if (!Array.isArray(resources)) {
+    console.error('Invalid resources array');
+    return [];
+  }
+
   return resources.map(resource => {
     const { width, height } = resource;
     return {
@@ -42,17 +32,7 @@ export function mapImageResources(resources) {
       title: resource.public_id,
       image: resource.secure_url,
       width,
-      height
-    }
+      height,
+    };
   });
-}
-
-export async function getFolders(options = {}) {
-  const response = await fetch(`https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/folders`, {
-    headers: {
-      Authorization: `Basic ${Buffer.from(process.env.CLOUDINARY_API_KEY + ':' + process.env.CLOUDINARY_API_SECRET).toString('base64')}`
-    }
-  }).then(r => r.json());
-
-  return response;
 }

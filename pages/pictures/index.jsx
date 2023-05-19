@@ -1,171 +1,207 @@
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import Link from "next/link";
+import { cloudinary, getBase64ImageUrl } from "helpers/cloudinary"
 
-import styles from '/styles/Home.module.css'
-import { useState } from "react";
-import Head from "next/head";
-import {createSignature} from "../../helpers/generateCloudinarySignature";
-export default function Upload() {
-    const [imageSrc, setImageSrc] = useState();
-    const [uploadData, setUploadData] = useState();
-
-    /**
-     * handleOnSubmit
-     * @description Triggers when the main form is submitted
-     */
-
-    const cloudinaryAdam = "dmhozrlru";
-    const cloudinaryElla = "dgbatwabz";
-    const uploadAdam = "tcsyqjkq";
-    const uploadELla ='my-uploads';
-    const uploadSigned = "ml_default";
-    const API_KEY = "743315572255242";
-    const API_SECRET = "MqyeLqqS8jZb-C0eLKBXH5RbQmc";
-
-    async function handleOnSubmit(event) {
-        event.preventDefault();
-
-        const timestamp = Math.round((new Date)/1000);
-
-        const form = event.currentTarget;
-        const fileInput = Array.from(form.elements).find(({name}) => name === 'file')
-        console.log(fileInput);
-
-        const formData = new FormData();
-        const tags = document.getElementById("tags").value;
-        const photographer = document.getElementById("photographer").value;
-        // const name = document.getElementById("name").value;
-        const caption = document.getElementById("caption").value;
-        const description = document.getElementById("description").value;
-        const coordinates= document.getElementById("coordinates").value;
-
-        for( const file of fileInput.files){
-            formData.append('file', file);
-        }
-
-        const media_metadata = true;
-
-        //create date for uploading image
-        const date = new Date();
-        let day = date.getDate();
-        let month = date.getMonth() + 1;
-        let year = date.getFullYear();
-        let currentDate = `${day}-${month}-${year}`;
-
-        formData.append('upload_preset', uploadSigned);
-        formData.append('tags', tags);
-        formData.append('media_metadata', media_metadata);
-        formData.append('photographer_name', photographer);
-        // formData.append('filename_override', name);
-        // formData.append('api_key', API_KEY);
-        // formData.append('timestamp', timestamp);
-        formData.append('context', 'alt=' + description + '|caption=' + caption + '|photographer=' + photographer + '|coordinates=' + coordinates + '|uploadDate=' + currentDate );
-
-
-        const parameters = {
-            media_metadata: true,
-            // metadata: {
-            //     external_id: "photographer_name",
-            //     value: photographer,
-            // },
-            tags: tags,
-            timestamp: timestamp,
-            upload_preset: uploadSigned
-        }
-        //
-        // const para = JSON.stringify(parameters)
-        // const params = JSON.parse(para);
-
-
-        const params = 'context=alt=' + description + '|caption=' + caption + "|photographer=" + photographer + '|coordinates=' + coordinates + '|uploadDate=' + currentDate + "&media_metadata=true" +"&tags=" + tags+ "&timestamp=" + timestamp + "&upload_preset=" + uploadSigned ;
-        const signature = createSignature(params);
-
-
-        const data = await fetch('https://api.cloudinary.com/v1_1/dgbatwabz/image/upload?api_key=743315572255242&timestamp=' + timestamp+ '&signature=' + signature, {
-            method: 'POST',
-            body: formData,
-            media_metadata: true,
-            photographer_name: photographer,
-            // apiKey: API_KEY,
-            // uploadSignature: signature
-
-        }).then(r => r.json());
-
-        setImageSrc(data.secure_url);
-        setUploadData(data);
-
-        console.log('data', data);
-
-    }
-
-
-        return (
-            <div className={styles.container}>
-                <Head>
-                    <title>Image Uploader</title>
-                    <meta name="description" content="Upload your image to Cloudinary!"/>
-                    <link rel="icon" href="/favicon.ico"/>
-                </Head>
-
-                <main className={styles.main}>
-                    <h1 className={styles.title}>
-                        Ladda upp bild
-                    </h1>
-
-                    <p className={styles.description}>
-                        Ladda upp dina bilder till Cloudinary.
-                    </p>
-
-                    <form className={styles.form} method="post"
-                        // onChange={handleOnChange}
-                          onSubmit={handleOnSubmit}>
-                        <p>
-                            <input type="file" id="file" name="file" required={true}/>
-                        </p>
-
-                        {/*<p>*/}
-                        {/*    <input type="text" id="name" placeholder={"Title"} required={true}/>*/}
-                        {/*</p>*/}
-
-                        <p>
-                            <input type="text" id="caption" placeholder={"Caption"} required={true}/>
-                        </p>
-
-                        <p>
-                            <input type="text" id="description" placeholder={"Description"} required={true}/>
-                        </p>
-
-                        <p>
-                            <input type="text" id="tags" placeholder={"Tags"} required={true}/>
-                        </p>
-
-                        <p>
-                            <input type="text" id="coordinates" placeholder={"GPS coordinates"}/>
-                        </p>
-
-                        <p>
-                            <input type="text" id="photographer" placeholder={"Photographer"}/>
-                        </p>
-
-
-                        {/*<img src={imageSrc} />*/}
-
-                        {!uploadData && (
-                            <p>
-                                <button>Upload Files</button>
-                            </p>
-                        )}
-
-                        {uploadData && (
-                            <h4> Bilddata: </h4>
-                        )}
-                        {uploadData && (
-                            <code>
-                                <pre>{JSON.stringify(uploadData, null, 2)}</pre>
-                            </code>
-                        )}
-                    </form>
-                </main>
-
+const Gallery = ({ images }) => {
+    const router = useRouter();
+    const { photoId, type } = router.query;
+    const [open, setOpen] = useState(false);
+    const [shuffled, setShuffled] = useState(false);
+    const [filter, setFilter] = useState("typicalmitul");
+    const newImages = images.filter((image) => image.public_id.includes(filter));
+    const [gridImages, setGridImages] = useState(images);
+    const [selectedImage, setSelectedImage] = useState({
+      public_id: "",
+      format: "",
+      blurDataURL: "",
+      width: 0,
+      height: 0,
+    });
+  
+    useEffect(() => {
+      if (!router.isReady) return;
+      if (type && type !== "all") {
+        setFilter(type);
+      } else {
+        setFilter("typicalmitul");
+      }
+    }, [router.isReady]);
+  
+    useEffect(() => {
+      const shuffledImages = newImages.sort(() => 0.5 - Math.random());
+      setGridImages(shuffledImages);
+    }, [filter]);
+  
+    useEffect(() => {
+      if (shuffled) return;
+      const shuffledImages = newImages.sort(() => 0.5 - Math.random());
+      setShuffled(true);
+      setGridImages(shuffledImages);
+    }, []);
+  
+    const breakpointColumnsObj = {
+      default: 4,
+      1100: 3,
+      700: 2,
+      500: 1,
+    };
+  
+    console.log(type);
+  
+    return (
+      <main className="relative">
+        <Dialog open={open} onOpenChange={setOpen}>
+          {photoId && (
+            <DialogPortal>
+              <DialogOverlay className="fixed inset-0 bg-black/75 backdrop-blur-md rdx-state-open:overlay-fade-in rdx-state-closed:overlay-fade-out" />
+              <DialogContent
+                className="fixed inset-0 mx-auto my-auto rounded shadow outline-none h-fit w-fit rdx-state-open:dialog-item-open rdx-state-closed:dialog-item-close"
+                onEscapeKeyDown={() => router.back()}
+                onPointerDownOutside={() => router.back()}
+              >
+                <div
+                  className={cx(
+                    "relative w-auto sm:h-[800px]",
+                    selectedImage.width < selectedImage.height
+                      ? "h-[500px]"
+                      : "h-[250px]"
+                  )}
+                >
+                  <NextFutureImage
+                    alt=""
+                    src={`https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/c_scale,w_1440/${selectedImage.public_id}.${selectedImage.format}`}
+                    placeholder="blur"
+                    blurDataURL={selectedImage.blurDataURL}
+                    // width={selectedImage.width}
+                    // height={selectedImage.height}
+                    fill
+                    className="rounded shadow-md !relative"
+                  />
+                </div>
+                <div className="flex gap-x-2 absolute top-4 right-4">
+                  {/* <button>Share</button> */}
+                  <DialogClose
+                    className="rounded-full bg-white/10 text-white p-2.5 leading-none hover:bg-black transition shrink-0"
+                    onClick={() => router.back()}
+                  >
+                    <X />
+                  </DialogClose>
+                </div>
+              </DialogContent>
+            </DialogPortal>
+          )}
+        </Dialog>
+        <Masonry
+          breakpointCols={breakpointColumnsObj}
+          className="my-masonry-grid py-4 px-8 sm:px-4"
+          columnClassName="my-masonry-grid_column"
+        >
+          <div className="h-96 border border-black rounded px-4 pt-2 pb-5 flex flex-col justify-between">
+            <Heading>Gallery</Heading>
+            <div>
+              <p className="text-sm mb-2">
+                Welcome to my portfolio! Here you&apos;ll find a selection of my
+                best work, from corporate to concert scenes. You can filter
+                through the buttons below. Explore and enjoy!
+              </p>
+              <div className="flex gap-0.5 flex-wrap">
+                {FILTERS.map(({ filter, type, title }) => (
+                  <FilterTag
+                    key={type}
+                    filter={type}
+                    onClick={() => setFilter(filter)}
+                  >
+                    {title}
+                  </FilterTag>
+                ))}
+              </div>
             </div>
-        )
-
+          </div>
+  
+          {gridImages.map(
+            ({ id, public_id, format, width, height, blurDataUrl }) => (
+              <AnimatePresence key={id}>
+                <Link
+                  href={`/gallery/?photoId=${id}`}
+                  as={`/gallery/${id}`}
+                  shallow
+                >
+                  <MotionImage
+                    // initial={{ scale: 0.8, opacity: 0 }}
+                    // animate={{
+                    //   scale: 1,
+                    //   opacity: 1,
+                    // }}
+                    // exit={{
+                    //   scale: 0.8,
+                    //   opacity: 0,
+                    // }}
+                    // layout
+                    onClick={() => {
+                      setSelectedImage({
+                        public_id: public_id,
+                        format: format,
+                        alt: "",
+                        blurDataURL: blurDataUrl,
+                        width: width,
+                        height: height,
+                      });
+                      setOpen(true);
+                      splitbee.track("Open Photo", {
+                        title: selectedImage.public_id,
+                      });
+                    }}
+                    className="cursor-pointer block overflow-hidden transition-all duration-500 border rounded-lg shadow betterhover:hover:shadow-xl betterhover:hover:shadow-yolk/50 betterhover:hover:border-yolk border-stone"
+                    alt=""
+                    placeholder="blur"
+                    blurDataURL={blurDataUrl}
+                    src={`https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/c_scale,w_720/${public_id}.${format}`}
+                    width={width}
+                    height={height}
+                  />
+                </Link>
+              </AnimatePresence>
+            )
+          )}
+        </Masonry>
+      </main>
+    );
+  };
+  
+  export async function getStaticProps() {
+    const results = await cloudinary.v2.search
+      .expression(`folder:typicalmitul/*`)
+      .sort_by("public_id", "desc")
+      .max_results(400)
+      .execute();
+    let reducedResults = [];
+    let i = 0;
+    for (let result of results.resources) {
+      reducedResults.push({
+        id: i,
+        height: result.height,
+        width: result.width,
+        public_id: result.public_id,
+        format: result.format,
+      });
+      i++;
     }
+  
+    const blurImagePromises = results.resources.map((image) => {
+      return getBase64ImageUrl(image);
+    });
+    const imagesWithBlurDataUrls = await Promise.all(blurImagePromises);
+  
+    for (let i = 0; i < reducedResults.length; i++) {
+      reducedResults[i].blurDataUrl = imagesWithBlurDataUrls[i];
+    }
+  
+    return {
+      props: {
+        images: reducedResults,
+      },
+    };
+  }
+  
+  export default Gallery;

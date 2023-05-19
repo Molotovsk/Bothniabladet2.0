@@ -36,6 +36,7 @@ function Nav() {
             priority
           />
         </div>
+      <nav className="bg-gradient-to-r from-teal-400 to-yellow-200 px-3 m-2">
         <div className="navbar-nav">
           <NavLink href="/" exact className="nav-item nav-link">Hem</NavLink>
           <button onClick={userService.logout} className="btn btn-link nav-item nav-link">Logga ut</button>
@@ -66,6 +67,7 @@ function Nav() {
       )
     }
     function admin() {
+
         return <nav className="navbar navbar-expand navbar-dark bg-myColor-500 pt-4 flex flex-col">
           <div>
             <Image
@@ -83,6 +85,14 @@ function Nav() {
               <NavLink href="/account/imageupload" id="upload" className="nav-item nav-link">Ladda upp bilder</NavLink>
               <button onClick={userService.logout} className="btn btn-link nav-item nav-link ">Logga ut</button>
           </div>
+        return <nav className="navbar navbar-expand bg-gradient-to-r from-teal-400 to-yellow-200 px-1.5">
+            <div className="navbar-nav">
+                <NavLink href="/" exact className="nav-item nav-link">Hem</NavLink>
+                <NavLink href="/users" id="users" className="nav-item nav-link">Användare</NavLink>
+                <NavLink href="/account/imageupload" id="upload" className="nav-item nav-link">Ladda upp bilder</NavLink>
+                <button onClick={userService.logout} className="btn btn-link nav-item nav-link ">Logga ut</button>
+            </div>
+
         </nav>
     }
 
@@ -92,4 +102,4 @@ function Nav() {
         return (photographer());
     }
     return (admin());
-}
+    }
