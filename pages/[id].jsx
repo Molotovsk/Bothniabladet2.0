@@ -6,6 +6,7 @@ import {alertService} from "@/services";
 
 export default Image;
 let chosenImage;
+let basket = [];
 function Image() {
     const router = useRouter();
     const [image, setImage] = useState(null);
@@ -37,11 +38,17 @@ function Image() {
     if(image) {
         return (
             <div>
+            <div>
                 <h2 className="text-2xl font-bold mt-12 mb-4 mx-20"> {image.title} </h2>
                 <img width={image.width} height={image.height} src={image.image} alt="hej" className="object-cover mx-20"/>
                 <h2 className="mx-20 mt-4"> Beskrivning: {image.alt} </h2>
                 <h2 className="mx-20 mt-4"> Taggar: {image.tags.toString()} </h2>
                 <h2 className="mx-20 mt-4"> Dimensioner: {image.height} x {image.height}  </h2>
+            </div>
+
+            <div>
+                <button className="btn btn-sm btn-primary me-1 mx-20 mt-4" onClick={imageService.addToBasket}> Lägg till i varukorg </button>
+            </div>
             </div>
         );
     }
