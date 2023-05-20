@@ -33,11 +33,15 @@ function Image() {
     // console.log(imageWidth);
     // console.log(imageSrc);
 
+
     if(image) {
         return (
             <div>
-                <h1>Bild</h1>
-                <img width={image.width} height={image.height} src={image.image} alt="hej" className="object-cover"/>
+                <h2 className="text-2xl font-bold mt-12 mb-4 mx-20"> {image.title} </h2>
+                <img width={image.width} height={image.height} src={image.image} alt="hej" className="object-cover mx-20"/>
+                <h2 className="mx-20 mt-4"> Beskrivning: {image.alt} </h2>
+                <h2 className="mx-20 mt-4"> Taggar: {image.tags.toString()} </h2>
+                <h2 className="mx-20 mt-4"> Dimensioner: {image.height} x {image.height}  </h2>
             </div>
         );
     }
