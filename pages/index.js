@@ -4,6 +4,7 @@ import Image from 'next/image';
 import {getQuery, SearchBar} from 'components/SearchBar';
 import { search, mapImageResources } from '../helpers/cloudinary';
 import {SelectedImages} from "@/pages/SelectedImages";
+import Link from 'next/link';
 
 // let images = [];
 let allImages = [];

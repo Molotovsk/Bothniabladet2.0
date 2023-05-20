@@ -18,10 +18,11 @@ export async function search(query = {}) {
     }),
     method: 'POST'
   }).then(r => r.json());
-
+  console.log.r;
   console.log.results;
-
   return results;
+
+  
 }
 
 
@@ -43,8 +44,10 @@ export function mapImageResources(resources) {
       height,
       tags,
       alt: alt || '', // Provide a default value for alt if it is undefined
+      caption: caption || '', // Add the caption parameter
     };
   });
 }
+
 
 
