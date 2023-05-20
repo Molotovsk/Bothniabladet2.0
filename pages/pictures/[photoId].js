@@ -1,71 +1,76 @@
 import { useRouter } from 'next/router';
-
-import { ImageProps } from '../utils/types'
-import { Container } from 'postcss';
-
-
-
-const Home = ({ currentImage }) => {
-    const router = useRouter();
-    const { imageId } = router.query;
-    let index = Number(imageId);
-    const currentPhotoUrl = `https://res.cloudinary.com/${process.env.CLOUDINARY_CLOUD_NAME}/image/upload/c_scale,w_2560/${currentImage.public_id}.${currentImage.format}`
+import Head from 'next/head';
+import { getResults } from '../utils/cachedImages';
+import ImageDetails from '../components/ImageDetails';
 
 
+const Home = ({ currentPhoto }) => {
+  const router = useRouter();
+  const { photoId } = router.query
+  let index = Number(photoId);
 
-    return (
-        <>
-          <Head>
-            <title>Bothniabladets bildbank</title>
-            <meta property="og:image" content={currentImageUrl} />
-          </Head>
-          <main className="mx-auto max-w-[1960px] p-4">
-            <Container currentImage={currentImage} index={index} />
-          </main>
-        </>
-        )
-}
+  const currentPhotoUrl = `https://res.cloudinary.com/dmhozrlru/image/upload/c_scale,w_2560/${currentPhoto.public_id}.${currentPhoto.format}`;
 
-export default Home
+  return (
+    <>
+      <Head>
+        <title>Bothniabladets bildbank</title>
+        <meta property="og:image" content={currentPhotoUrl} />
+      </Head>
+      <main className="mx-auto max-w-[1960px] p-4">
+        <ImageDetails photo={currentPhoto} />
+      </main>
+    </>
+  );
+};
+
+export default Home;
 
 export async function getStaticProps(context) {
-    const results = await getResults();
-  
-    let reducedResults = [];
-    let i = 0;
-    for (let result of results.resources) {
-      reducedResults.push({
-        id: i,
-        height: result.height,
-        width: result.width,
-        public_id: result.public_id,
-        format: result.format,
-      });
-      i++;
-    }
-  
-    const currentImage = reducedResults.find(
-      (img) => img.id === Number(context.params.imageId)
-    );
-  
-    return {
-      props: {
-        currentImage: currentImage,
-      },
-    };
+  const results = await getResults();
+
+  let reducedResults = [];
+  let i = 0;
+  for (let result of results.resources) {
+    reducedResults.push({
+      id: i,
+      height: result.height,
+      width: result.width,
+      public_id: result.public_id,
+      format: result.format,
+      imageUrl: `https://res.cloudinary.com/dmhozrlru/image/upload/c_scale,w_720/${result.public_id}.${result.format}`, // Add imageUrl property
+      title: 'Image Title', // Replace with the actual title property of your image
+      description: 'Image Description', // Replace with the actual description property of your image
+    });
+    i++;
   }
 
-export async function getServerSideProps(context) {
-  const { id } = context.query;
-  // Fetch the image based on the ID using the Cloudinary API or your preferred method
-  const image = await fetchImage(id);
+  const currentPhoto = reducedResults.find(
+    (img) => img.id === Number(context.params.photoId)
+  );
 
   return {
     props: {
-      image,
+      currentPhoto: currentPhoto,
     },
   };
 }
+
+export async function getStaticPaths() {
+  const results = await performSearch({ expression: '' }); // Modify the default expression value here if needed
+
+  let fullPaths = []
+  for (let i = 0; i < results.resources.length; i++) {
+    fullPaths.push({ params: { photoId: i.toString() } })
+  }
+
+  return {
+    paths: fullPaths,
+    fallback: false,
+  }
+}
+
+
 
 
 /*

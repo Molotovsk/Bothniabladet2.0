@@ -8,7 +8,8 @@ mongoose.connect(process.env.MONGODB_URI || serverRuntimeConfig.connectionString
 mongoose.Promise = global.Promise;
 
 export const db = {
-    User: userModel()
+    User: userModel(),
+    Image: Image()
 };
 
 // mongoose models with schema definitions
@@ -37,3 +38,20 @@ function userModel() {
 
     return mongoose.models.User || mongoose.model('User', schema);
 }
+
+
+    const imageSchema = new mongoose.Schema({
+        created_at: Date,
+        width: Number,
+        height: Number,
+        asset_id: String,
+        filename: String,
+        tags: [String],
+        context: {
+        alt: String,
+        caption: String,
+        },
+        url: String,
+    });
+    
+    export const Image = mongoose.model('Image', imageSchema);
