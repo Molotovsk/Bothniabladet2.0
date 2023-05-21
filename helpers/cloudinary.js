@@ -34,7 +34,7 @@ export function mapImageResources(resources) {
 
   return resources.map(resource => {
     const { width, height, tags, context, public_id } = resource;
-    const { alt, caption } = context || {}; // Provide a default empty object if context is undefined
+    const { alt, caption, price, photograph_name, license } = context || {}; // Provide a default empty object if context is undefined
 
     return {
       id: resource.asset_id,
@@ -45,6 +45,9 @@ export function mapImageResources(resources) {
       tags,
       alt: alt || '', // Provide a default value for alt if it is undefined
       caption: caption || '', // Add the caption parameter
+      photograph_name: photograph_name || '',
+      price: price || '', // Add the price parameter
+      license: license || '', // Add the price parameter
     };
   });
 }
