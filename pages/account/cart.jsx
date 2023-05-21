@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useRouter } from 'next/router';
-import {clearBasket, getBasket} from "@/pages/[id]";
+import {basketPrice, clearBasket, getBasket} from "@/pages/[id]";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -85,6 +85,8 @@ function App() {
         }
     }, [showPopup]);
 
+    const price = basketPrice();
+
     return (
         <div className="container">
             <style jsx>{`
@@ -165,7 +167,7 @@ function App() {
         }
       `}</style>
             <div className="checkout-page">
-                <div className="form-group" >
+                <div className="form-group" id="basket">
                     <label className="amount-label">Din varukorg:</label>
                     {getBasket().map((image) => {
                         return (
@@ -174,12 +176,12 @@ function App() {
                             </li>
                         );
                     })}
-                    <button className="btn btn-sm btn-primary me-1 mt-4" onClick={clearBasket}> Rensa varukorg </button>
+                    <button className="btn btn-sm btn-primary me-1 mt-4" onClick={changeBasket}> Rensa varukorg </button>
                 </div>
             </div>
             <div className="checkout-page">
                 <h1 className="heading">Kassa</h1>
-                <form>
+                <form id="myForm">
                     <div className="form-group">
                         <label>Kortnummer</label>
                         <div className="card-number-inputs">
@@ -318,7 +320,7 @@ function App() {
                     </div>
                     <div className="form-group">
                         <label className="amount-label">Pris:</label>
-                        <span className="amount-value">$10</span>
+                        <span className="amount-value"> {price} </span>
                     </div>
                     <div className="checkout-buttons">
                         <button
@@ -349,7 +351,7 @@ function App() {
                                 backgroundColor: 'black',
                                 color: 'white'
                             }}
-                            onClick={handleBetalaNuClick}
+                            onClick={cancelBuy}
                         >
                             Avbryt
                         </button>
@@ -369,6 +371,20 @@ function App() {
             </div>
         </div>
     );
+}
+
+export function changeBasket(){
+    clearBasket();
+    location.reload();
+}
+
+export function cancelBuy(){
+    clearFields();
+    changeBasket();
+}
+
+export function clearFields(){
+    document.getElementById("myForm").reset();
 }
 
 export default App;

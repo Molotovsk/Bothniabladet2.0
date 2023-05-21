@@ -42,6 +42,10 @@ function Nav() {
                 <NavLink href="/account/imageupload" id="upload" className="nav-item nav-link">Ladda upp bilder</NavLink>
                 <button onClick={userService.logout} className="btn btn-link nav-item nav-link">Logga ut</button>
             </div>
+            <div>
+                <NavLink href="/account/cart" className="nav-item nav-link ml-auto"> Varukorg
+                </NavLink>
+            </div>
         </nav>
     }
     function admin() {
@@ -51,6 +55,10 @@ function Nav() {
                 <NavLink href="/users" id="users" className="nav-item nav-link">Användare</NavLink>
                 <NavLink href="/account/imageupload" id="upload" className="nav-item nav-link">Ladda upp bilder</NavLink>
                 <button onClick={userService.logout} className="btn btn-link nav-item nav-link ">Logga ut</button>
+            </div>
+            <div>
+                <NavLink href="/account/cart" className="nav-item nav-link ml-auto"> Varukorg
+                </NavLink>
             </div>
         </nav>
     }

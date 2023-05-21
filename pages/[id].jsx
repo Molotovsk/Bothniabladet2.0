@@ -41,36 +41,27 @@ function Image() {
     }
   }
 
-  if (image) {
-    return (
-      <div className="flex flex-col items-center justify-center h-screen">
-        <div className="text-center">
-          <h2 className="text-4xl font-bold mb-4"> {image.title} </h2>
-          <div className="relative">
-            <CldImage
-              className="mx-auto max-w-full"
-              publicId={image.image}
-              alt="hej"
-              cloudName="your-cloud-name"
-              width={image.width}
-              height={image.height}
-              crop="scale"
-            />
-            <ul className="mx-20 mt-4">
-              <li>
-                <strong>Beskrivning:</strong> {image.alt}
-              </li>
-              <li>
-                <strong>Taggar:</strong> {image.tags.join(", ")}
-              </li>
-              <li>
-                <strong>Dimensioner:</strong> {image.width} x {image.height}
-              </li>
-            </ul>
-            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2">
-              <button className="btn btn-sm btn-primary" onClick={addToBasket}>
-                Lägg till i varukorg
-              </button>
+    // let imageHeight = image.height;
+    // let imageWidth = image.width;
+    // let imageSrc = image.image;
+    // //
+    // console.log(imageHeight);
+    // console.log(imageWidth);
+    // console.log(imageSrc);
+
+
+    if(image) {
+        return (
+            <div>
+            <div>
+                <h2 className="text-2xl font-bold mt-12 mb-4 mx-20"> {image.title} </h2>
+                <img width={image.width} height={image.height} src={image.image} alt="hej" className="object-cover mx-20"/>
+                <h2 className="mx-20 mt-4"> Beskrivning: {image.alt} </h2>
+                <h2 className="mx-20 mt-4"> Taggar: {image.tags.toString()} </h2>
+                <h2 className="mx-20 mt-4"> Dimensioner: {image.height} x {image.height}  </h2>
+                <h2 className="mx-20 mt-4"> Fotograf: {image.photographer_name}  </h2>
+                <h2 className="mx-20 mt-4"> License: {image.license}  </h2>
+                <h2 className="mx-20 mt-4"> Pris: {image.price} </h2>
             </div>
           </div>
         </div>
