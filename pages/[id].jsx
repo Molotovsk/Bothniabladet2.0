@@ -64,8 +64,6 @@ function Image() {
                 <h2 className="mx-20 mt-4"> Pris: {image.price} </h2>
             </div>
           </div>
-        </div>
-      </div>
     );
   }
 }
