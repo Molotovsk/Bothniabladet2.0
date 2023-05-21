@@ -8,16 +8,16 @@ datasource db {
 }
 
 model images {
-  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
   asset_id   String
-  context    String[]
-  created_at DateTime @db.Date
+  created_at DateTime  @db.Date
   filename   String
   height     Int
-  licens     String
-  price      String
-  tags       String[]
-  updated_at DateTime @db.Date
+  licens     String?
+  price      String?
+  tags       String[]  @default([])
+  context    String[]  @default([])
+  updated_at DateTime?
   url        String
   width      Int
 }

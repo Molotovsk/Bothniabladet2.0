@@ -6,6 +6,8 @@ import Link from 'next/link';
 import { useLastViewedPhoto } from '../utils/useLastViewedPhoto';
 import prisma from '../utils/prisma';
 
+import { bulkInsertImages } from 'pages/api/pictures/bulk'
+
 
 function SearchBar({ handleSearch }) {
   const [query, setQuery] = useState('');
@@ -109,7 +111,11 @@ export default function Home({ images: defaultImages }) {
 
 export async function getStaticProps() {
   try {
-    const images = await prisma.images.findMany(); // Use `images` instead of `image` here
+    // Fetch and store images using the fetchAndStoreImages function
+    await bulkInsertImages();
+
+    // Retrieve images from MongoDB using Prisma
+    const images = await prisma.images.findMany();
 
     const imageState = images.map((image) => ({
       id: image.id,
