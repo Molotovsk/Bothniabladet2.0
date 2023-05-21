@@ -22,7 +22,7 @@ function Nav() {
 
   function customer() {
     return (
-      <nav className="navbar navbar-expand bg-gradient-to-r from-teal-400 to-yellow-200 px-1.5 flex justify-start">
+      <nav className="navbar navbar-expand bg-myColor-400 px-1.5 flex justify-start">
         <div className="navbar-nav">
           <NavLink href="/" exact className="nav-item nav-link">Hem</NavLink>
           <button onClick={userService.logout} className="btn btn-link nav-item nav-link">Logga ut</button>
@@ -43,7 +43,8 @@ function Nav() {
                 <button onClick={userService.logout} className="btn btn-link nav-item nav-link">Logga ut</button>
             </div>
             <div className="navbar-nav ml-auto">
-                <NavLink href="/account/cart" className="nav-item nav-link ml-auto"> Varukorg
+              
+                <NavLink href="/account/cart" className="ml-auto bg-transparent hover:bg-blue-500 text-white font-semibold hover:text-myColor-900 py-2 px-4 border border-blue-500 hover:border-transparent rounded"> Varukorg
                 </NavLink>
             </div>
         </nav>

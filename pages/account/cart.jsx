@@ -267,14 +267,6 @@ function App() {
                                 <option value="2032">2032</option>
                             </select>
                             <input
-                                type="text"
-                                placeholder="yyyy"
-                                className="expiration-input"
-                                name="year"
-                                maxLength="4"
-                                required="True"
-                            />
-                            <input
                                 type="password"
                                 placeholder="cvv"
                                 className="expiration-input"
@@ -357,17 +349,6 @@ function App() {
                         </button>
                     </div>
                 </form>
-                {showPopup && (
-                    <div className="popup">
-                        <div className="popup-content">
-                            <h2>Thank you for your purchase!</h2>
-                            <p>Your picture/pictures will be sent to your email.</p>
-                            <button className="popup-close" onClick={handlePopupClose}>
-                                Close
-                            </button>
-                        </div>
-                    </div>
-                )}
             </div>
         </div>
     );

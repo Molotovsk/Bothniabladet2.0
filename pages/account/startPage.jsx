@@ -12,7 +12,7 @@ export default function Start() {
             // className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
         >
 
-            <div>
+            <div className="bg-gradient-to-t from-emerald-700 to-green-300">
                 <header className="flex justify-center bg-myColor-500">
 
                     <div class="flex flex-wrap items-center justify-around">
@@ -42,7 +42,7 @@ export default function Start() {
                             className="loginButton basis-1/8"
                         >
 
-                            <Link href="login" >
+                            <Link href="login" className="bg-myColor-700 hover:bg-myColor-300 text-white font-bold py-2 px-4 border-b-4 border-myColor-800 hover:border-myColor-500 rounded" >
                                 Logga in
                             </Link>
 
@@ -83,8 +83,7 @@ export default function Start() {
                     Har du tagit någon bra bild?
                     Skicka in den till oss genom att trycka på knappen nedan och skapa ett tips.
                 </p>
-
-                <Link className="loginButton" href={"tip"}>
+                <Link className="bg-myColor-700 hover:bg-myColor-400 text-white font-bold py-2 px-4 border-b-4 border-myColor-800 hover:border-myColor-500 rounded" href={"tip"}>
                     Tipsa Bothniabladet
                 </Link>
             </div>

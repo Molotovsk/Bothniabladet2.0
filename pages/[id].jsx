@@ -69,7 +69,7 @@ function Image() {
                   text: {
                     color: 'white',
                     fontFamily: 'Source Sans Pro',
-                    fontSize: 80,
+                    fontSize: 100,
                     fontWeight: 'bold',
                     text: 'Bothniabladet'
                   },
@@ -130,4 +130,14 @@ export function basketContains(id) {
     }
   });
   return result;
+}
+
+export function basketPrice() {
+  const basket = getBasket();
+  let price = 0;
+  basket.filter(obj=> {
+    const objPrice = parseInt(obj.price);
+    price = price + objPrice;
+  })
+  return price;
 }

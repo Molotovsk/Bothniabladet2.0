@@ -111,7 +111,7 @@ function searchFunction() {
           return (
               <li key={image.id} className="flex flex-col items-center">
                 <div className="aspect-w-2 aspect-h-4">
-                  <Image width={image.width} height={image.height} src={image.image} alt="hej" className="object-cover" />
+                  <Image width={800} height={800} src={image.image} alt="hej" className="object-cover" />
                 </div>
                 <Link href={image.id} className="container mx-auto px-1 mt-2 text-current font-semibold text-c">
                   <h1>{image.title}</h1>
