@@ -4,7 +4,7 @@ export async function search(query = {}) {
 
   const paramString = query;
 
-  const results = await fetch(`https://api.cloudinary.com/v1_1/${config.cloudiary.CLOUD_NAME}/resources/search/`, {
+  const results = await fetch(`https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/resources/search/`, {
     headers: {
       Authorization: `Basic ${Buffer.from(config.cloudiary.API_KEY + ':' + config.cloudiary.API_SECRET).toString('base64')}`,
       'Content-Type': 'application/json'

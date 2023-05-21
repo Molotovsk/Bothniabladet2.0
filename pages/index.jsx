@@ -3,10 +3,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import {getQuery, SearchBar} from 'components/SearchBar';
 import { search, mapImageResources } from '../helpers/cloudinary';
-import {SelectedImages, setImages} from "@/pages/SelectedImages";
 import Link from 'next/link';
-import searchedPictures from "@/pages/account/searchedPictures";
-import Gallery from "@/components/Gallery";
 
 let images = [];
 let allImages = [];
