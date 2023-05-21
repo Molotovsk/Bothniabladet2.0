@@ -50,20 +50,65 @@ function Image() {
     // console.log(imageSrc);
 
 
-    if(image) {
-        return (
-            <div>
-            <div>
-                <h2 className="text-2xl font-bold mt-12 mb-4 mx-20"> {image.title} </h2>
-                <img width={image.width} height={image.height} src={image.image} alt="hej" className="object-cover mx-20"/>
-                <h2 className="mx-20 mt-4"> Beskrivning: {image.alt} </h2>
-                <h2 className="mx-20 mt-4"> Taggar: {image.tags.toString()} </h2>
-                <h2 className="mx-20 mt-4"> Dimensioner: {image.height} x {image.height}  </h2>
-                <h2 className="mx-20 mt-4"> Fotograf: {image.photographer_name}  </h2>
-                <h2 className="mx-20 mt-4"> License: {image.license}  </h2>
-                <h2 className="mx-20 mt-4"> Pris: {image.price} </h2>
+    if (image) {
+      return (
+        <div className="flex flex-col items-center justify-start min-h-screen pt-4">
+          <div className="text-center">
+            <h2 className="text-4xl font-bold mb-4"> {image.title} </h2>
+            <div className="relative">
+              <CldImage
+                className="mx-auto max-w-full"
+                src={image.image}
+                alt="hej"
+                cloudName="dmhozrlru"
+                width={image.width}
+                height={image.height}
+                crop="scale"
+                overlays={[{
+                  crop: 'fit',
+                  text: {
+                    color: 'white',
+                    fontFamily: 'Source Sans Pro',
+                    fontSize: 80,
+                    fontWeight: 'bold',
+                    text: 'Bothniabladet'
+                  },
+                  effects: [
+                    {
+                      shear: '40:0',
+                      opacity: 70
+                    }
+                  ]
+                }]}
+              />
+                <ul className="mx-20 mt-4">
+                <li>
+                  <strong>Beskrivning:</strong> {image.alt}
+                </li>
+                <li>
+                  <strong>Taggar:</strong> {image.tags.join(', ')}
+                </li>
+                <li>
+                  <strong>Dimensioner:</strong> {image.width} x {image.height}
+                </li>
+                <li>
+                  <strong>Fotograf:</strong> {image.photographer_name}
+                </li>
+                <li>
+                  <strong>Licens:</strong> {image.license}
+                </li>
+                <li>
+                  <strong>Pris:</strong> {image.price}
+                </li>
+              </ul>
+            </div>
+            <div className="mt-4">
+              <button className="btn btn-sm btn-primary" onClick={addToBasket}>
+                Lägg till i varukorg
+              </button>
             </div>
           </div>
+        </div>
     );
   }
 }
