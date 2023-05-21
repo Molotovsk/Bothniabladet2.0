@@ -46,6 +46,7 @@ function Nav() {
                 <NavLink href="/" exact className="nav-item nav-link">Hem</NavLink>
                 <NavLink href="/users" id="users" className="nav-item nav-link">Användare</NavLink>
                 <NavLink href="/account/imageupload" id="upload" className="nav-item nav-link">Ladda upp bilder</NavLink>
+                <NavLink href="/account/EditImage" id="editimage" className="nav-item nav-link">Redigera bilder</NavLink>
                 <button onClick={userService.logout} className="btn btn-link nav-item nav-link ">Logga ut</button>
             </div>
         </nav>
