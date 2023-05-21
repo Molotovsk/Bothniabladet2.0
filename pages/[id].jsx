@@ -56,6 +56,9 @@ function Image() {
                 <h2 className="mx-20 mt-4"> Beskrivning: {image.alt} </h2>
                 <h2 className="mx-20 mt-4"> Taggar: {image.tags.toString()} </h2>
                 <h2 className="mx-20 mt-4"> Dimensioner: {image.height} x {image.height}  </h2>
+                <h2 className="mx-20 mt-4"> Fotograf: {image.photographer_name}  </h2>
+                <h2 className="mx-20 mt-4"> License: {image.license}  </h2>
+                <h2 className="mx-20 mt-4"> Pris: {image.price} </h2>
             </div>
 
             <div>
@@ -83,4 +86,14 @@ export function basketContains(id){
         }
     })
     return result;
+}
+
+export function basketPrice(){
+    const basket = getBasket();
+    let price = 0;
+   basket.filter(obj => {
+       const objPrice = parseInt(obj.price);
+       price = price + objPrice;
+    })
+    return price;
 }
