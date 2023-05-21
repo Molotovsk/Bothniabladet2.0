@@ -22,11 +22,15 @@ function Nav() {
 
   function customer() {
     return (
-      <nav className="bg-gradient-to-r from-teal-400 to-yellow-200 px-3 m-2">
+      <nav className="navbar navbar-expand bg-gradient-to-r from-teal-400 to-yellow-200 px-1.5 flex justify-start">
         <div className="navbar-nav">
           <NavLink href="/" exact className="nav-item nav-link">Hem</NavLink>
           <button onClick={userService.logout} className="btn btn-link nav-item nav-link">Logga ut</button>
         </div>
+          <div>
+              <NavLink href="/account/cart" className="nav-item nav-link ml-auto"> Varukorg
+              </NavLink>
+          </div>
       </nav>
     );
   }

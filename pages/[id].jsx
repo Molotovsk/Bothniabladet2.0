@@ -26,6 +26,18 @@ function Image() {
 
     console.log(image);
 
+    function addToBasket(){
+        if((basketContains(image.id)) === false) {
+            imageService.getImage(image.id)
+                .then(x => basket.push(x))
+                .catch(alertService.error)
+            alertService.success("Din bild har lagts till i varukorgen!");
+            console.log(basket);
+        }else{
+        alertService.error("Du har redan den här bilden i din varukorg")
+        console.log(basket);}
+    }
+
     // let imageHeight = image.height;
     // let imageWidth = image.width;
     // let imageSrc = image.image;
@@ -47,10 +59,28 @@ function Image() {
             </div>
 
             <div>
-                <button className="btn btn-sm btn-primary me-1 mx-20 mt-4" onClick={imageService.addToBasket}> Lägg till i varukorg </button>
+                <button className="btn btn-sm btn-primary me-1 mx-20 mt-4" onClick={addToBasket}> Lägg till i varukorg </button>
             </div>
             </div>
         );
     }
 }
 
+export function getBasket(){
+    return basket;
+}
+
+export function clearBasket(){
+    basket.length = 0;
+}
+
+export function basketContains(id){
+    const basket = getBasket();
+    let result = false;
+    var output = basket.filter(obj => {
+        if(id === obj.id) {
+            result = true;
+        }
+    })
+    return result;
+}
