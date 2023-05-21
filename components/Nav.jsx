@@ -27,7 +27,7 @@ function Nav() {
           <NavLink href="/" exact className="nav-item nav-link">Hem</NavLink>
           <button onClick={userService.logout} className="btn btn-link nav-item nav-link">Logga ut</button>
         </div>
-          <div>
+          <div className="navbar-nav ml-auto">
               <NavLink href="/account/cart" className="nav-item nav-link ml-auto"> Varukorg
               </NavLink>
           </div>
@@ -42,7 +42,7 @@ function Nav() {
                 <NavLink href="/account/imageupload" id="upload" className="nav-item nav-link">Ladda upp bilder</NavLink>
                 <button onClick={userService.logout} className="btn btn-link nav-item nav-link">Logga ut</button>
             </div>
-            <div>
+            <div className="navbar-nav ml-auto">
                 <NavLink href="/account/cart" className="nav-item nav-link ml-auto"> Varukorg
                 </NavLink>
             </div>
@@ -56,8 +56,8 @@ function Nav() {
                 <NavLink href="/account/imageupload" id="upload" className="nav-item nav-link">Ladda upp bilder</NavLink>
                 <button onClick={userService.logout} className="btn btn-link nav-item nav-link ">Logga ut</button>
             </div>
-            <div>
-                <NavLink href="/account/cart" className="nav-item nav-link ml-auto"> Varukorg
+            <div className="navbar-nav ml-auto">
+                <NavLink href="/account/cart" > Varukorg
                 </NavLink>
             </div>
         </nav>

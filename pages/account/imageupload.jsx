@@ -47,6 +47,8 @@ function imageupload() {
         const caption = document.getElementById("caption").value;
         const description = document.getElementById("description").value;
         const coordinates = document.getElementById("coordinates").value;
+        const price = document.getElementById("price").value;
+        const license = document.getElementById("license").value;
 
         for (const file of fileInput.files) {
             formData.append('file', file);
@@ -68,7 +70,7 @@ function imageupload() {
         // formData.append('filename_override', name);
         // formData.append('api_key', API_KEY);
         // formData.append('timestamp', timestamp);
-        formData.append('context', 'alt=' + description + '|caption=' + caption + '|photographer=' + photographer + '|coordinates=' + coordinates + '|uploadDate=' + currentDate);
+        formData.append('context', 'alt=' + description + '|caption=' + caption + '|photographer=' + photographer + '|coordinates=' + coordinates + '|uploadDate=' + currentDate + '|price=' + price + '|license=' + license) ;
 
 
         const parameters = {
@@ -86,11 +88,11 @@ function imageupload() {
         // const params = JSON.parse(para);
 
 
-        const params = 'context=alt=' + description + '|caption=' + caption + "|photographer=" + photographer + '|coordinates=' + coordinates + '|uploadDate=' + currentDate + "&media_metadata=true" + "&tags=" + tags + "&timestamp=" + timestamp + "&upload_preset=" + uploadSigned;
+        const params = 'context=alt=' + description + '|caption=' + caption + "|photographer=" + photographer + '|coordinates=' + coordinates + '|uploadDate=' + currentDate + '|price=' + price + '|license=' + license + "&media_metadata=true" + "&tags=" + tags + "&timestamp=" + timestamp + "&upload_preset=" + uploadSigned;
         const signature = createSignature(params);
 
 
-        const data = await fetch('https://api.cloudinary.com/v1_1/dmhozrlru/image/upload?api_key=518316254137456&timestamp=' + timestamp + '&signature=' + signature, {
+        const data = await fetch('https://api.cloudinary.com/v1_1/' + cloudinaryAdam + '/image/upload?api_key=518316254137456&timestamp=' + timestamp + '&signature=' + signature, {
             method: 'POST',
             body: formData,
             media_metadata: true,
@@ -111,40 +113,61 @@ function imageupload() {
         <div className="min-h-screen flex flex-col items-center justify-center">
             <h1 className="card-header m-8 font-['Arial'] text-2xl mt-16">Ladda upp bilder</h1>
             <div className="card-body justify-center">
-                <form onSubmit={handleOnSubmit} className="justify-items-center">
+                <form onSubmit={handleOnSubmit} className="justify-items-center" id="uploadForm">
                     <div className="flex flex-col pt-6 items-center justify-around mb-6">
 
-                        <input id="file" type="file" name="file" className="mb-6"/>
+                        <input id="file" type="file" name="file" className="mb-6" required={true}/>
 
-                        <input id="caption" type="text" placeholder="Bildtext" className="mb-6"/>
+                        <input id="caption" type="text" placeholder="Titel" className="mb-6" required={true}/>
 
-                        <input id="description" type="text" placeholder="Beskrivning" className="mb-6"/>
+                        <input id="description" type="text" placeholder="Beskrivning" className="mb-6" required={true}/>
 
-                        <input id="tags" type="text" placeholder="Taggar" className="mb-6"/>
+                        <p> Vänligen separera taggarna med ett kommatecken </p>
+                        <input id="tags" type="text" placeholder="Taggar" className="mb-6" required={true}/>
 
                         <input id="coordinates" type="text" placeholder="Koordinater" className="mb-6"/>
 
                         <input id="photographer" type="text" placeholder="Fotograf" className="mb-6"/>
 
+                        <input id="price" type="text" placeholder="Pris" className="mb-6"/>
+
+                        <input id="license" type="text" placeholder="License" className="mb-6"/>
+
                         {!uploadData && (
                     <button className="border-8 border-green-700 rounded-md bg-green-700" >
-                        Ladda upp fil
+                        Ladda upp bilder
                     </button>
                             )}
 
                         {uploadData && (
-                            <h4> Bilddata: </h4>
+                            <h4> Din bild har laddats upp! </h4>
                         )}
-                        {uploadData && (
-                            <code>
-                                <pre>{JSON.stringify(uploadData, null, 2)}</pre>
-                            </code>
-                        )}
+                        {/*{uploadData && (*/}
+                        {/*    <code>*/}
+                        {/*        <pre>{JSON.stringify(uploadData, null, 2)}</pre>*/}
+                        {/*    </code>*/}
+                        {/*)}*/}
+                        {/*{uploadData && (*/}
+                        {/*    <Link href="/account/imageUpload" className="border-8 border-green-700 rounded-md bg-green-700" >*/}
+                        {/*        Ladda upp en till*/}
+                        {/*    </Link>*/}
+                        {/*)}*/}
+
                     </div>
                 </form>
+                {uploadData && (
+                    <button onClick={clearForm} className="border-8 border-green-700 rounded-md bg-green-700" >
+                        Ladda upp en till
+                    </button>
+                )}
             </div>
         </div>
 
     )
 
+}
+
+export function clearForm(){
+    document.getElementById("uploadForm").reset();
+    location.reload();
 }
